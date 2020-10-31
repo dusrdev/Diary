@@ -1,6 +1,6 @@
 # WPF Diary
 
-## Hello everyone
+Hello everyone!/
 
 This is a WPF Diary app that will use a local encrypted database./
 This app will be rather straight forward, The UI will include a login page,
