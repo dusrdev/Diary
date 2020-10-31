@@ -3,10 +3,24 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Diary"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="Diary - By David Shnayder" Height="720" Width="1280">
+    <Grid Margin="20">
+        <DockPanel LastChildFill="True">
+            <DockPanel DockPanel.Dock="Top" LastChildFill="True">
+                <Label Content="Title:" DockPanel.Dock="Left" Padding="0,0,5,0"/>
+                <TextBox x:Name="txtTitle" MaxLines="1" DockPanel.Dock="Right"/>
+            </DockPanel>
+            <Border Height="5" DockPanel.Dock="Top"/>
+            <DockPanel DockPanel.Dock="Bottom" LastChildFill="True">
+                <Button x:Name="btnSave" Content="Save" DockPanel.Dock="Right"/>
+                <Label x:Name="lblMetrics" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" DockPanel.Dock="Left"/>
+            </DockPanel>
+            <Border Height="5" DockPanel.Dock="Bottom"/>
+            <DockPanel LastChildFill="True">
+                <Label Content="Body:" Padding="0,0,5,0" DockPanel.Dock="Left"/>
+                <TextBox x:Name="txtBody" DockPanel.Dock="Right" HorizontalContentAlignment="Left" FlowDirection="LeftToRight" VerticalContentAlignment="Top"/>
+            </DockPanel>
+        </DockPanel>
     </Grid>
 </Window>
