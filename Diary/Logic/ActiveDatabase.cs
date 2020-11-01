@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using static Diary.Logic.Logger;
 
 namespace Diary.Logic {
     public class ActiveDatabase {
-        public List<DiaryEntree> Entrees { get; set; }
+        public List<DiaryEntree> CurrentEntrees { get; set; }
+        public Edb EntreeDatabase { get; set; }
         public List<User> Udb { get; set; }
         public User CurrentUser { get; set; }
-        //TODO: Add serialization object
+        public MySerializer MS { get; set; }
 
         /// <summary>
         /// Creates a new user from the login window
@@ -17,11 +17,19 @@ namespace Diary.Logic {
         /// <param name="newUser">Credentials</param>
         /// <returns>indication of success</returns>
         public bool AddUser(User newUser) {
-            //TODO: Implement
-            //Load all users from udb
-            //Check if newUser exists by Username
-            //If does exist, add and serialize.
-            return false;
+            if (Udb.Exists(u => u.Username == newUser.Username)) {
+                Log("Tried to add existing user");
+                return false;
+            }
+            try {
+                newUser.UserID = Udb.Last().UserID + 1;
+                Udb.Add(newUser);
+                MS.SerializeToFile(Udb, "Udb");
+            } catch (Exception e) {
+                Log(e);
+                return false;
+            }
+            return true;
         }
 
         /// <summary>
@@ -33,7 +41,6 @@ namespace Diary.Logic {
             foreach (var user in Udb) {
                 if (user.Username == userInfo.Username && true) { //TODO: Check password using AES
                     CurrentUser = userInfo;
-                    //TODO: Import this users entrees
                     return true;
                 }
             }
@@ -47,9 +54,9 @@ namespace Diary.Logic {
         /// <returns>Results (Not found if empty)</returns>
         public List<DiaryEntree> Search(string query) {
             List<DiaryEntree> results = new List<DiaryEntree>();
-            foreach (var entree in Entrees) {
-                if (true) {
-                    //TODO: Implement query search
+            var sQuery = query.Queryable();
+            foreach (var entree in CurrentEntrees) {
+                if (entree.Title.QuerySearch(sQuery) || entree.Body.QuerySearch(sQuery)) {
                     results.Add(entree);
                 }
             }
@@ -63,10 +70,11 @@ namespace Diary.Logic {
         /// <returns>indication of success</returns>
         public bool RemoveEntree(int queryID) {
             try {
-                Entrees.RemoveAll(e => e.ID == queryID);
-                //TODO: Serialzie
+                CurrentEntrees.RemoveAll(e => e.ID == queryID); //TODO: Check for need
+                EntreeDatabase.TotalEntrees[CurrentUser.UserID].RemoveAll(e => e.ID == queryID);
+                MS.SerializeToFile(EntreeDatabase, "Edb");
             } catch (Exception e) {
-                //TODO: Log e
+                Log(e);
                 return false;
             }
             return true;
@@ -79,10 +87,11 @@ namespace Diary.Logic {
         /// <returns>indication of success</returns>
         public bool AddEntree(DiaryEntree newEntree) {
             try {
-                Entrees.Add(newEntree);
-                //TODO: Serialize
+                CurrentEntrees.Add(newEntree); //TODO: Check for need
+                EntreeDatabase.TotalEntrees[CurrentUser.UserID].Add(newEntree);
+                MS.SerializeToFile(EntreeDatabase, "Edb");
             } catch (Exception e) {
-                //TODO: Log e
+                Log(e);
                 return false;
             }
             return true;
@@ -99,10 +108,11 @@ namespace Diary.Logic {
             }
             try {
                 Udb.RemoveAll(u => u.UserID == CurrentUser.UserID);
-                //TODO: Serialize
-                //TODO: Remove All of this users entrees by ID and also serialize
+                EntreeDatabase.TotalEntrees.Remove(CurrentUser.UserID);
+                MS.SerializeToFile(Udb, "Udb");
+                MS.SerializeToFile(EntreeDatabase, "Edb");
             } catch (Exception e) {
-                //TODO: Log e
+                Log(e);
                 return false;
             }
             return true;
@@ -117,9 +127,9 @@ namespace Diary.Logic {
                 return false;
             }
             try {
-                //TODO: Export current user's diary entrees to xml
+                MS.SerializeToXmlFile(CurrentEntrees, $"{CurrentUser.Username}-Diary");
             } catch (Exception e) {
-                //TODO: Log e
+                Log(e);
                 return false;
             }
             return true;

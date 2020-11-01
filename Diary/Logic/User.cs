@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Diary.Logic {
     [Serializable()]
@@ -19,15 +20,29 @@ namespace Diary.Logic {
         public User(string username, string password) {
             Username = username;
             Password = password;
-            //TODO: Add password hashing
+            HashedPassword = Aes.GeneratePassword(Password);
         }
 
+        /// <summary>
+        /// Serialization function
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="context"></param>
         public void GetObjectData(SerializationInfo info, StreamingContext context) {
             info.AddValue("UserID", UserID);
             info.AddValue("Username", Username);
             info.AddValue("HashedPassword", HashedPassword);
         }
 
-        //TODO: Add deserialization function
+        /// <summary>
+        /// Deserialization function
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="ctxt"></param>
+        public User(SerializationInfo info, StreamingContext ctxt) {
+            UserID = (int)info.GetValue("UserID", typeof(int));
+            Username = (string)info.GetValue("Username", typeof(string));
+            HashedPassword = (string)info.GetValue("HashedPassword", typeof(string));
+        }
     }
 }

@@ -64,8 +64,13 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Logic\ActiveDatabase.cs" />
+    <Compile Include="Logic\Aes.cs" />
     <Compile Include="Logic\DiaryEntree.cs" />
+    <Compile Include="Logic\Edb.cs" />
+    <Compile Include="Logic\Extensions.cs" />
     <Compile Include="Logic\Logger.cs" />
+    <Compile Include="Logic\MySerializer.cs" />
+    <Compile Include="Logic\Native.cs" />
     <Compile Include="Logic\User.cs" />
     <Compile Include="Logic\UserData.cs" />
     <Compile Include="MainWindow.xaml.cs">
@@ -91,6 +96,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

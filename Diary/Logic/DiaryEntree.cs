@@ -23,12 +23,17 @@ namespace Diary.Logic {
         /// <param name="body"></param>
         /// <param name="previousEntreeID">ID of the last entree before this one</param>
         public DiaryEntree(string title, string body, int previousEntreeID) {
-            Title = title; //TODO: Format as title
+            Title = title.ToTitle();
             Body = body;
-            //TODO: DateTime as FullDateAndTime() string
+            Date = DateTime.Now.FullDateAndTime();
             ID = previousEntreeID + 1;
         }
 
+        /// <summary>
+        /// Serialization function
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="context"></param>
         public void GetObjectData(SerializationInfo info, StreamingContext context) {
             info.AddValue("ID", ID);
             info.AddValue("Date", Date);
@@ -36,6 +41,16 @@ namespace Diary.Logic {
             info.AddValue("Body", Body);
         }
 
-        //TODO: Add deserialization function
+        /// <summary>
+        /// Deserialization function
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="ctxt"></param>
+        public DiaryEntree(SerializationInfo info, StreamingContext ctxt) {
+            ID = (int)info.GetValue("ID", typeof(int));
+            Date = (string)info.GetValue("Date", typeof(string));
+            Title = (string)info.GetValue("Title", typeof(string));
+            Body = (string)info.GetValue("Body", typeof(string));
+        }
     }
 }
