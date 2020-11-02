@@ -85,11 +85,14 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <Label Content="Developer:" Grid.Row="0" Grid.Column="0"/>
                         <Label Content="David Shnayder" Grid.Row="0" Grid.Column="1"/>
                         <Label Content="Release Date:" Grid.Row="1" Grid.Column="0"/>
                         <Label Content="November 2020" Grid.Row="1" Grid.Column="1"/>
+                        <Label Content="Icon made by:" Grid.Row="2" Grid.Column="0"/>
+                        <Label Content="Flaticon.com" Grid.Row="2" Grid.Column="1"/>
                     </Grid>
                 </StackPanel>
             </Grid>
