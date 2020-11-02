@@ -2,16 +2,29 @@
 
 Hello everyone!
 
-This is a WPF Diary app that will use a local encrypted database./
-This app will be rather straight forward, The UI will include a login page,
-a main page in which the user can enter a diary entree, a second page in which the user can
-search for entries using keywords and explicit queries, and a 3rd page that will allow to remove entries by ID, and a final page with info about the app.
+This is a WPF Diary app that uses a local encrypted scalable database.
 
-### Other information
+### App interface description:
 
-* The app will use the .Net framework version 4.7.2 and primarily target 64bit machines.
-* Encryption will be AES-256 bit.
-* The app will be coded with scaleability in mind.
++ Login page.
+1. Main page - Add new diary entry.
+2. Search page - Allows to search all entries by keywords.
+3. More option page - Option to remove an entry by ID (can be found throught search) and remove currently logged user.
+4. Info page - Display information about me, the stable release date and the icon author.
+
+### Encryption information and assembly
+
++ The app will use the .Net framework version 4.7.2 and primarily target 64bit machines.
++ The entire app will be encrypted using custom AES-256 bit encryption.
++ The user database is encrypted with a simple coded key however all user passwords are hashed with Rfc2898DeriveBytes class.
++ Every user will have a seperate file for storing his entries and the file will be an encrypted binary file encrypted using his password as the key.
++ This will make the encryption different for every user and make it impossible to decrypt without the user's password.
++ After login only that user's entries are loaded into memory, and the program can't decrypt any file without the password.
+* More on previous point: Only after login in, the program received the Diary decryption key, and the key fits only that user.
+
+### Possible future changes that I might add
+
+* Exporting user diary to xml (Backend already done).
 
 ### Notes
 
