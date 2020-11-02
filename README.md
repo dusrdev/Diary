@@ -16,7 +16,3 @@ search for entries using keywords and explicit queries, and a 3rd page that will
 ### Notes
 
 If anyone would like to help it is more than welcome, if you have suggestions I would love to hear them.
-
-### Future features (Not available in current release)
-
-* Allow multiple users, with option to delete entire user data.
