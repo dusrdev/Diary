@@ -4,77 +4,93 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Diary - By David Shnayder" Height="720" Width="1280">
-    <Grid>
+        Title="Diary - By David Shnayder" WindowStartupLocation="CenterScreen" Height="720" Width="1280">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Theme/Dictionaries.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Background="{StaticResource White}">
         <StackPanel x:Name="LoginPage" Orientation="Vertical" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <DockPanel LastChildFill="True">
-                <Label Content="Username:" Margin="0, 0, 5, 0" DockPanel.Dock="Left"/>
-                <TextBox x:Name="txtUsername" DockPanel.Dock="Right" HorizontalContentAlignment="Left" AcceptsReturn="False" MinWidth="120"/>
-            </DockPanel>
-            <Border Height="10"/>
-            <DockPanel LastChildFill="True">
-                <Label Content="Password:" Margin="0, 0, 5, 0" DockPanel.Dock="Left"/>
-                <PasswordBox x:Name="pswBox" DockPanel.Dock="Right" HorizontalContentAlignment="Left" MinWidth="120"/>
-            </DockPanel>
-            <Border Height="10"/>
-            <Grid HorizontalAlignment="Stretch">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Button x:Name="btnCreate" Grid.Column="0" Content="Create" HorizontalAlignment="Center" Click="btnCreate_Click"/>
-                <Button x:Name="btnLogin" Grid.Column="1" Content="Login" HorizontalAlignment="Center" Click="btnLogin_Click"/>
-            </Grid>
-            <Label x:Name="lblLoginStatus" Visibility="Collapsed" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"/>
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Content="Username:" Style="{StaticResource KeyLabel}" Grid.Row="0" Grid.Column="0"/>
+                    <TextBox x:Name="txtUsername" Grid.Row="0" Grid.Column="1" KeyDown="txtUsername_KeyDown" MinWidth="120"/>
+                    <Label Content="Password:" Style="{StaticResource KeyLabel}" Grid.Row="2" Grid.Column="0"/>
+                    <PasswordBox x:Name="pswBox" Grid.Row="2" Grid.Column="1" KeyDown="pswBox_KeyDown" MinWidth="120"/>
+                </Grid>
+                <Border Height="10"/>
+                <Grid HorizontalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="btnCreate" Grid.Column="0" Content="Create" HorizontalAlignment="Center" Click="btnCreate_Click"/>
+                    <Button x:Name="btnLogin" Grid.Column="1" Content="Login" HorizontalAlignment="Center" Click="btnLogin_Click"/>
+                </Grid>
+            </StackPanel>
+            <Label x:Name="lblLoginStatus" Style="{StaticResource StatusLabel}" Visibility="Collapsed" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"/>
         </StackPanel>
         <DockPanel x:Name="GeneralPage" LastChildFill="True" Visibility="Collapsed">
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Stretch">
-                <Button x:Name="btnMain" Content="Main" Click="btnMain_Click"/>
-                <Button x:Name="btnSearch" Content="Search" Click="btnSearch_Click"/>
-                <Button x:Name="btnMore" Content="More" Click="btnMore_Click"/>
-                <Button x:Name="btnInfo" Content="Info" Click="btnInfo_Click"/>
+                <Button x:Name="btnMain" Style="{StaticResource Tab}" IsEnabled="False" Content="Main" Click="btnMain_Click"/>
+                <Button x:Name="btnSearch" Style="{StaticResource Tab}" Content="Search" Click="btnSearch_Click"/>
+                <Button x:Name="btnMore" Style="{StaticResource Tab}" Content="More" Click="btnMore_Click"/>
+                <Button x:Name="btnInfo" Style="{StaticResource Tab}" Content="Info" Click="btnInfo_Click"/>
             </StackPanel>
             <Grid Margin="20">
                 <DockPanel x:Name="MainPage" Visibility="Visible" LastChildFill="True">
                     <DockPanel DockPanel.Dock="Top" LastChildFill="True">
-                        <Label Content="Title:" DockPanel.Dock="Left" Padding="0,0,5,0"/>
+                        <Label Content="Title:" Style="{StaticResource KeyLabel}" DockPanel.Dock="Left"/>
                         <TextBox x:Name="txtTitle" MaxLines="1" DockPanel.Dock="Right"/>
                     </DockPanel>
                     <Border Height="5" DockPanel.Dock="Top"/>
-                    <Label x:Name="lblMainStatus" DockPanel.Dock="Bottom" Visibility="Collapsed" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
+                    <Label x:Name="lblMainStatus" Style="{StaticResource StatusLabel}" DockPanel.Dock="Bottom" Visibility="Collapsed" HorizontalAlignment="Stretch"/>
                     <Border Height="5" DockPanel.Dock="Bottom"/>
                     <DockPanel LastChildFill="True">
-                        <Label Content="Body:" Padding="0,0,5,0" DockPanel.Dock="Left"/>
+                        <Label Content="Body:" Style="{StaticResource KeyLabel}" DockPanel.Dock="Left"/>
                         <DockPanel DockPanel.Dock="Bottom" LastChildFill="True">
                             <Button x:Name="btnSave" Content="Save" DockPanel.Dock="Right" Click="btnSave_Click"/>
                             <Label x:Name="lblMetrics" Content="0 characters, 0 words, 0 lines." HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" DockPanel.Dock="Left"/>
                         </DockPanel>
-                        <TextBox x:Name="txtBody" AcceptsTab="True" AcceptsReturn="True" DockPanel.Dock="Right" HorizontalContentAlignment="Left" FlowDirection="LeftToRight" VerticalContentAlignment="Top" GotKeyboardFocus="txtBody_GotKeyboardFocus" TextChanged="txtBody_TextChanged"/>
+                        <Border Height="5" DockPanel.Dock="Bottom"/>
+                        <TextBox x:Name="txtBody" Style="{StaticResource Body}" DockPanel.Dock="Right" GotKeyboardFocus="txtBody_GotKeyboardFocus" TextChanged="txtBody_TextChanged"/>
                     </DockPanel>
                 </DockPanel>
                 <DockPanel x:Name="SearchPage" Visibility="Collapsed" LastChildFill="True">
                     <DockPanel LastChildFill="True" DockPanel.Dock="Top">
-                        <Label Content="Search Query:" Margin="0,0,5,0" DockPanel.Dock="Left"/>
+                        <Label Content="Search Query:" Style="{StaticResource KeyLabel}" DockPanel.Dock="Left"/>
                         <Button x:Name="btnSearchQuery" Content="Search" DockPanel.Dock="Right" Click="btnSearchQuery_Click"/>
-                        <TextBox x:Name="txtSearch" MinWidth="120" AcceptsReturn="False" TextChanged="txtSearch_TextChanged"/>
+                        <TextBox x:Name="txtSearch" MinWidth="120" AcceptsReturn="False" KeyDown="txtSearch_KeyDown" TextChanged="txtSearch_TextChanged"/>
                     </DockPanel>
-                    <Label x:Name="lblSearchStatus" Visibility="Collapsed" DockPanel.Dock="Top" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
-                    <ListBox x:Name="lstSearchResults"/>
+                    <Label x:Name="lblSearchStatus" Style="{StaticResource StatusLabel}" Visibility="Collapsed" DockPanel.Dock="Top" HorizontalAlignment="Stretch"/>
+                    <ListBox x:Name="lstSearchResults" Style="{StaticResource EntreesListbox}"/>
                 </DockPanel>
                 <StackPanel x:Name="MorePage" Visibility="Collapsed" Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">
-                        <Label Content="Remove entree by ID:" Margin="0,0,5,0"/>
-                        <TextBox x:Name="txtRemoveEntree" MinWidth="120"/>
+                        <Label Content="Remove entree by ID:" Style="{StaticResource KeyLabel}"/>
+                        <TextBox x:Name="txtRemoveEntree" MinWidth="120" KeyDown="txtRemoveEntree_KeyDown"/>
                         <Button x:Name="btnRemoveEntree" Content="Remove" Click="btnRemoveEntree_Click"/>
-                        <Label x:Name="lblRemoveStatus" Visibility="Collapsed"/>
+                        <Label x:Name="lblRemoveStatus" Style="{StaticResource StatusLabel}" Visibility="Collapsed"/>
                     </StackPanel>
                     <Border Height="10"/>
                     <StackPanel Orientation="Horizontal">
-                        <Label Content="Remove current user" Margin="0,0,50,0"/>
-                        <Label Content="Password" Margin="0,0,5,0"/>
-                        <PasswordBox x:Name="pswBoxRemove" MinWidth="120"/>
+                        <Label Content="Remove current user ->" Style="{StaticResource KeyLabel}" FontWeight="Bold" Margin="0,0,50,0"/>
+                        <Label Content="Password:" Style="{StaticResource KeyLabel}"/>
+                        <PasswordBox x:Name="pswBoxRemove" MinWidth="120" KeyDown="pswBoxRemove_KeyDown"/>
                         <Button x:Name="btnRemoveUser" Content="Remove" Click="btnRemoveUser_Click"/>
-                        <Label x:Name="lblRemoveUserStatus" Visibility="Collapsed"/>
+                        <Label x:Name="lblRemoveUserStatus" Style="{StaticResource StatusLabel}" Visibility="Collapsed"/>
                     </StackPanel>
                 </StackPanel>
                 <StackPanel x:Name="InfoPage" Visibility="Collapsed" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -87,13 +103,16 @@
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <Label Content="Developer:" Grid.Row="0" Grid.Column="0"/>
-                        <Label Content="David Shnayder" Grid.Row="0" Grid.Column="1"/>
-                        <Label Content="Release Date:" Grid.Row="1" Grid.Column="0"/>
-                        <Label Content="November 2020" Grid.Row="1" Grid.Column="1"/>
-                        <Label Content="Icon made by:" Grid.Row="2" Grid.Column="0"/>
-                        <Label Content="Flaticon.com" Grid.Row="2" Grid.Column="1"/>
+                        <Label Content="Developer:" Style="{StaticResource KeyLabel}" Grid.Row="0" Grid.Column="0"/>
+                        <Label Content="David Shnayder" Style="{StaticResource PropertyLabel}" Grid.Row="0" Grid.Column="1"/>
+                        <Label Content="Email:" Style="{StaticResource KeyLabel}" Grid.Row="1" Grid.Column="0"/>
+                        <Label Content="dusrdev@gmail.com" Style="{StaticResource PropertyLabel}" Grid.Row="1" Grid.Column="1"/>
+                        <Label Content="Release Date:" Style="{StaticResource KeyLabel}" Grid.Row="2" Grid.Column="0"/>
+                        <Label Content="November 2020" Style="{StaticResource PropertyLabel}" Grid.Row="2" Grid.Column="1"/>
+                        <Label Content="Icon made by:" Style="{StaticResource KeyLabel}" Grid.Row="3" Grid.Column="0"/>
+                        <Label Content="Flaticon.com" Style="{StaticResource PropertyLabel}" Grid.Row="3" Grid.Column="1"/>
                     </Grid>
                 </StackPanel>
             </Grid>

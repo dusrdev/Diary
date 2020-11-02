@@ -13,10 +13,15 @@ namespace Diary {
     /// </summary>
     public partial class MainWindow : Window {
         private ActiveDatabase Adb { get; set; }
+        private Brush Green { get; set; }
+        private Brush Red { get; set; }
 
         public MainWindow() {
             InitializeComponent();
+            Green = (Brush)FindResource("DSGreen");
+            Red = (Brush)FindResource("Red");
             Adb = new ActiveDatabase();
+            Invoke(() => txtUsername.Focus());
         }
 
         protected override void OnClosing(CancelEventArgs e) {
@@ -68,15 +73,14 @@ namespace Diary {
         private void btnSave_Click(object sender, RoutedEventArgs e) {
             var title = txtTitle.Text;
             var body = txtBody.Text;
+            Invoke(() => lblMainStatus.Foreground = Red);
+            Invoke(() => lblMainStatus.Visibility = Visibility.Visible);
             if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(body)) {
                 Invoke(() => lblMainStatus.Content = "Both title and body cannot be empty!");
-                Invoke(() => lblMainStatus.Foreground = Brushes.Red);
-                Invoke(() => lblMainStatus.Visibility = Visibility.Visible);
             } else {
                 Adb.AddEntree(title, body);
+                Invoke(() => lblMainStatus.Foreground = Green);
                 Invoke(() => lblMainStatus.Content = "Successfully added the entry!");
-                Invoke(() => lblMainStatus.Foreground = Brushes.Green);
-                Invoke(() => lblMainStatus.Visibility = Visibility.Visible);
             }
         }
 
@@ -98,20 +102,17 @@ namespace Diary {
 
         private void btnSearchQuery_Click(object sender, RoutedEventArgs e) {
             var query = txtSearch.Text;
+            Invoke(() => lblSearchStatus.Foreground = Red);
+            Invoke(() => lblSearchStatus.Visibility = Visibility.Visible);
             if (string.IsNullOrEmpty(query)) {
                 Invoke(() => lblSearchStatus.Content = "Cannot search with empty text!");
-                Invoke(() => lblSearchStatus.Foreground = Brushes.Red);
-                Invoke(() => lblSearchStatus.Visibility = Visibility.Visible);
             } else {
                 var results = Adb.Search(query);
                 if (results == null || results.Count == 0) {
                     Invoke(() => lblSearchStatus.Content = "Found no results :(");
-                    Invoke(() => lblSearchStatus.Foreground = Brushes.Red);
-                    Invoke(() => lblSearchStatus.Visibility = Visibility.Visible);
                 } else {
+                    Invoke(() => lblSearchStatus.Foreground = Green);
                     Invoke(() => lblSearchStatus.Content = $"Found {results.Count} results!");
-                    Invoke(() => lblSearchStatus.Foreground = Brushes.Green);
-                    Invoke(() => lblSearchStatus.Visibility = Visibility.Visible);
                     Invoke(() => lstSearchResults.ItemsSource = results);
                 }
             }
@@ -121,13 +122,19 @@ namespace Diary {
             Invoke(() => lblSearchStatus.Visibility = Visibility.Collapsed);
         }
 
+        private void txtSearch_KeyDown(object sender, KeyEventArgs e) {
+            if (e.Key == Key.Enter) {
+                btnSearchQuery_Click(sender, e);
+            }
+        }
+
         #endregion SearchPage
 
         #region MorePage
 
         private void btnRemoveEntree_Click(object sender, RoutedEventArgs e) {
             var id = txtRemoveEntree.Text;
-            Invoke(() => lblRemoveStatus.Foreground = Brushes.Red);
+            Invoke(() => lblRemoveStatus.Foreground = Red);
             Invoke(() => lblRemoveStatus.Visibility = Visibility.Visible);
             if (string.IsNullOrEmpty(id)) {
                 Invoke(() => lblRemoveStatus.Content = "Please enter ID!");
@@ -140,8 +147,8 @@ namespace Diary {
                     if (!removeStatus) {
                         Invoke(() => lblRemoveStatus.Content = "Failed to remove entry, confirm ID!");
                     } else {
+                        Invoke(() => lblRemoveStatus.Foreground = Green);
                         Invoke(() => lblRemoveStatus.Content = "Successfully removed entry!");
-                        Invoke(() => lblRemoveStatus.Foreground = Brushes.Green);
                     }
                 }
             }
@@ -149,7 +156,7 @@ namespace Diary {
 
         private void btnRemoveUser_Click(object sender, RoutedEventArgs e) {
             var password = pswBoxRemove.Password;
-            Invoke(() => lblRemoveUserStatus.Foreground = Brushes.Red);
+            Invoke(() => lblRemoveUserStatus.Foreground = Red);
             Invoke(() => lblRemoveUserStatus.Visibility = Visibility.Visible);
             if (password != Adb.CurrentUser.Password) {
                 Invoke(() => lblRemoveUserStatus.Content = "Wrong password!");
@@ -158,9 +165,21 @@ namespace Diary {
                 if (!removeStatus) {
                     Invoke(() => lblRemoveUserStatus.Content = "Failed to remove user, check log!");
                 } else {
-                    Invoke(() => lblRemoveUserStatus.Foreground = Brushes.Green);
+                    Invoke(() => lblRemoveUserStatus.Foreground = Green);
                     Invoke(() => lblRemoveUserStatus.Content = "Successfully removed user!");
                 }
+            }
+        }
+
+        private void pswBoxRemove_KeyDown(object sender, KeyEventArgs e) {
+            if (e.Key == Key.Enter) {
+                btnRemoveUser_Click(sender, e);
+            }
+        }
+
+        private void txtRemoveEntree_KeyDown(object sender, KeyEventArgs e) {
+            if (e.Key == Key.Enter) {
+                btnRemoveEntree_Click(sender, e);
             }
         }
 
@@ -172,7 +191,7 @@ namespace Diary {
             var username = txtUsername.Text;
             var password = pswBox.Password;
             Invoke(() => lblLoginStatus.Visibility = Visibility.Visible);
-            Invoke(() => lblLoginStatus.Foreground = Brushes.Red);
+            Invoke(() => lblLoginStatus.Foreground = Red);
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password)) {
                 Invoke(() => lblLoginStatus.Content = "Both username and password cannot be empty!");
             } else {
@@ -190,7 +209,7 @@ namespace Diary {
             var username = txtUsername.Text;
             var password = pswBox.Password;
             Invoke(() => lblLoginStatus.Visibility = Visibility.Visible);
-            Invoke(() => lblLoginStatus.Foreground = Brushes.Red);
+            Invoke(() => lblLoginStatus.Foreground = Red);
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password)) {
                 Invoke(() => lblLoginStatus.Content = "Both username and password cannot be empty!");
             } else {
@@ -201,6 +220,18 @@ namespace Diary {
                     Invoke(() => LoginPage.Visibility = Visibility.Collapsed);
                     Invoke(() => GeneralPage.Visibility = Visibility.Visible);
                 }
+            }
+        }
+
+        private void txtUsername_KeyDown(object sender, KeyEventArgs e) {
+            if (e.Key == Key.Enter) {
+                Invoke(() => pswBox.Focus());
+            }
+        }
+
+        private void pswBox_KeyDown(object sender, KeyEventArgs e) {
+            if (e.Key == Key.Enter) {
+                btnLogin_Click(sender, e);
             }
         }
 
