@@ -5,9 +5,28 @@ using System.Windows.Threading;
 
 namespace Diary.Logic {
     public static class Native {
-        public static void InvokeA(Action action) => Dispatcher.CurrentDispatcher.InvokeAsync(action);
+        public static void Invoke(Action action) => Dispatcher.CurrentDispatcher.Invoke(action);
 
-        public static void InvokeS(Action action) => Dispatcher.CurrentDispatcher.Invoke(action);
+        /// <summary>
+        /// Function that attempts to remove file
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="extension"></param>
+        /// <returns>Indication of success</returns>
+        public static bool RemoveFile(string fileName, string extension = ".dat") {
+            fileName += extension;
+            if (!File.Exists(fileName)) {
+                return false;
+            } else {
+                try {
+                    File.Delete(fileName);
+                } catch (Exception e) {
+                    Logger.Log(e);
+                    return false;
+                }
+                return true;
+            }
+        }
 
         /// <summary>
         /// Exports a list strings to a .txt file, every string to new line.

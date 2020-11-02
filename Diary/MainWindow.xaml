@@ -6,7 +6,7 @@
         mc:Ignorable="d"
         Title="Diary - By David Shnayder" Height="720" Width="1280">
     <Grid>
-        <StackPanel x:Name="LoginPage" Orientation="Vertical" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel x:Name="LoginPage" Orientation="Vertical" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Center">
             <DockPanel LastChildFill="True">
                 <Label Content="Username:" Margin="0, 0, 5, 0" DockPanel.Dock="Left"/>
                 <TextBox x:Name="txtUsername" DockPanel.Dock="Right" HorizontalContentAlignment="Left" AcceptsReturn="False" MinWidth="120"/>
@@ -22,12 +22,12 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="btnCreate" Grid.Column="0" Content="Create" HorizontalAlignment="Center"/>
-                <Button x:Name="btnLogin" Grid.Column="1" Content="Login" HorizontalAlignment="Center"/>
+                <Button x:Name="btnCreate" Grid.Column="0" Content="Create" HorizontalAlignment="Center" Click="btnCreate_Click"/>
+                <Button x:Name="btnLogin" Grid.Column="1" Content="Login" HorizontalAlignment="Center" Click="btnLogin_Click"/>
             </Grid>
             <Label x:Name="lblLoginStatus" Visibility="Collapsed" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"/>
         </StackPanel>
-        <DockPanel x:Name="GeneralPage" LastChildFill="True" Visibility="Visible">
+        <DockPanel x:Name="GeneralPage" LastChildFill="True" Visibility="Collapsed">
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Stretch">
                 <Button x:Name="btnMain" Content="Main" Click="btnMain_Click"/>
                 <Button x:Name="btnSearch" Content="Search" Click="btnSearch_Click"/>
@@ -41,30 +41,31 @@
                         <TextBox x:Name="txtTitle" MaxLines="1" DockPanel.Dock="Right"/>
                     </DockPanel>
                     <Border Height="5" DockPanel.Dock="Top"/>
-                    <DockPanel DockPanel.Dock="Bottom" LastChildFill="True">
-                        <Button x:Name="btnSave" Content="Save" DockPanel.Dock="Right"/>
-                        <Label x:Name="lblMetrics" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" DockPanel.Dock="Left"/>
-                    </DockPanel>
+                    <Label x:Name="lblMainStatus" DockPanel.Dock="Bottom" Visibility="Collapsed" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
                     <Border Height="5" DockPanel.Dock="Bottom"/>
                     <DockPanel LastChildFill="True">
                         <Label Content="Body:" Padding="0,0,5,0" DockPanel.Dock="Left"/>
-                        <TextBox x:Name="txtBody" DockPanel.Dock="Right" HorizontalContentAlignment="Left" FlowDirection="LeftToRight" VerticalContentAlignment="Top"/>
+                        <DockPanel DockPanel.Dock="Bottom" LastChildFill="True">
+                            <Button x:Name="btnSave" Content="Save" DockPanel.Dock="Right" Click="btnSave_Click"/>
+                            <Label x:Name="lblMetrics" Content="0 characters, 0 words, 0 lines." HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" DockPanel.Dock="Left"/>
+                        </DockPanel>
+                        <TextBox x:Name="txtBody" AcceptsTab="True" AcceptsReturn="True" DockPanel.Dock="Right" HorizontalContentAlignment="Left" FlowDirection="LeftToRight" VerticalContentAlignment="Top" GotKeyboardFocus="txtBody_GotKeyboardFocus" TextChanged="txtBody_TextChanged"/>
                     </DockPanel>
                 </DockPanel>
                 <DockPanel x:Name="SearchPage" Visibility="Collapsed" LastChildFill="True">
                     <DockPanel LastChildFill="True" DockPanel.Dock="Top">
                         <Label Content="Search Query:" Margin="0,0,5,0" DockPanel.Dock="Left"/>
-                        <Button x:Name="btnSearchQuery" Content="Search" DockPanel.Dock="Right"/>
-                        <TextBox x:Name="txtSearch" MinWidth="120" AcceptsReturn="False"/>
+                        <Button x:Name="btnSearchQuery" Content="Search" DockPanel.Dock="Right" Click="btnSearchQuery_Click"/>
+                        <TextBox x:Name="txtSearch" MinWidth="120" AcceptsReturn="False" TextChanged="txtSearch_TextChanged"/>
                     </DockPanel>
                     <Label x:Name="lblSearchStatus" Visibility="Collapsed" DockPanel.Dock="Top" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
                     <ListBox x:Name="lstSearchResults"/>
                 </DockPanel>
                 <StackPanel x:Name="MorePage" Visibility="Collapsed" Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">
-                        <Label Content="Remove entree by ID: " Margin="0,0,5,0"/>
+                        <Label Content="Remove entree by ID:" Margin="0,0,5,0"/>
                         <TextBox x:Name="txtRemoveEntree" MinWidth="120"/>
-                        <Button x:Name="btnRemoveEntree" Content="Remove"/>
+                        <Button x:Name="btnRemoveEntree" Content="Remove" Click="btnRemoveEntree_Click"/>
                         <Label x:Name="lblRemoveStatus" Visibility="Collapsed"/>
                     </StackPanel>
                     <Border Height="10"/>
@@ -72,7 +73,7 @@
                         <Label Content="Remove current user" Margin="0,0,50,0"/>
                         <Label Content="Password" Margin="0,0,5,0"/>
                         <PasswordBox x:Name="pswBoxRemove" MinWidth="120"/>
-                        <Button x:Name="btnRemoveUser" Content="Remove"/>
+                        <Button x:Name="btnRemoveUser" Content="Remove" Click="btnRemoveUser_Click"/>
                         <Label x:Name="lblRemoveUserStatus" Visibility="Collapsed"/>
                     </StackPanel>
                 </StackPanel>

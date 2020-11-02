@@ -21,12 +21,12 @@ namespace Diary.Logic {
         /// </summary>
         /// <param name="title"></param>
         /// <param name="body"></param>
-        /// <param name="previousEntreeID">ID of the last entree before this one</param>
-        public DiaryEntree(string title, string body, int previousEntreeID) {
+        /// <param name="entreeID">ID of the last entree before this one</param>
+        public DiaryEntree(string title, string body, int entreeID) {
             Title = title.ToTitle();
             Body = body;
             Date = DateTime.Now.FullDateAndTime();
-            ID = previousEntreeID + 1;
+            ID = entreeID;
         }
 
         /// <summary>
@@ -51,6 +51,10 @@ namespace Diary.Logic {
             Date = (string)info.GetValue("Date", typeof(string));
             Title = (string)info.GetValue("Title", typeof(string));
             Body = (string)info.GetValue("Body", typeof(string));
+        }
+
+        public override string ToString() {
+            return "Not implemented to listbox";
         }
     }
 }
