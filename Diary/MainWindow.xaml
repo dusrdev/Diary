@@ -50,24 +50,33 @@
                 <Button x:Name="btnInfo" Style="{StaticResource Tab}" Content="Info" Click="btnInfo_Click"/>
             </StackPanel>
             <Grid Margin="20">
-                <DockPanel x:Name="MainPage" Visibility="Visible" LastChildFill="True">
-                    <DockPanel DockPanel.Dock="Top" LastChildFill="True">
-                        <Label Content="Title:" Style="{StaticResource KeyLabel}" DockPanel.Dock="Left"/>
-                        <TextBox x:Name="txtTitle" MaxLines="1" DockPanel.Dock="Right"/>
+                <Grid x:Name="MainPage" Visibility="Visible">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Label Content="Title:" Style="{StaticResource KeyLabel}" Grid.Row="0" Grid.Column="0"/>
+                    <TextBox x:Name="txtTitle" MaxLines="1" Grid.Row="0" Grid.Column="1" DockPanel.Dock="Right"/>
+                    <Border Height="5" Grid.Row="1"/>
+                    <Label Content="Body:" Style="{StaticResource KeyLabel}" Grid.Row="2" Grid.Column="0"/>
+                    <TextBox x:Name="txtBody" Style="{StaticResource Body}" Grid.Row="2" Grid.Column="1" GotKeyboardFocus="txtBody_GotKeyboardFocus" TextChanged="txtBody_TextChanged"/>
+                    <Border Height="5" Grid.Row="3"/>
+                    <DockPanel Grid.Row="4" Grid.Column="1" LastChildFill="True">
+                        <Button x:Name="btnSave" Content="Save" DockPanel.Dock="Right" Click="btnSave_Click"/>
+                        <Label x:Name="lblMetrics" Content="0 characters, 0 words, 0 lines." HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" DockPanel.Dock="Left"/>
                     </DockPanel>
-                    <Border Height="5" DockPanel.Dock="Top"/>
-                    <Label x:Name="lblMainStatus" Style="{StaticResource StatusLabel}" DockPanel.Dock="Bottom" Visibility="Collapsed" HorizontalAlignment="Stretch"/>
-                    <Border Height="5" DockPanel.Dock="Bottom"/>
-                    <DockPanel LastChildFill="True">
-                        <Label Content="Body:" Style="{StaticResource KeyLabel}" DockPanel.Dock="Left"/>
-                        <DockPanel DockPanel.Dock="Bottom" LastChildFill="True">
-                            <Button x:Name="btnSave" Content="Save" DockPanel.Dock="Right" Click="btnSave_Click"/>
-                            <Label x:Name="lblMetrics" Content="0 characters, 0 words, 0 lines." HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" DockPanel.Dock="Left"/>
-                        </DockPanel>
-                        <Border Height="5" DockPanel.Dock="Bottom"/>
-                        <TextBox x:Name="txtBody" Style="{StaticResource Body}" DockPanel.Dock="Right" GotKeyboardFocus="txtBody_GotKeyboardFocus" TextChanged="txtBody_TextChanged"/>
-                    </DockPanel>
-                </DockPanel>
+                    <Border Grid.Row="5" Height="5"/>
+                    <Label x:Name="lblMainStatus" Grid.Row="6" Style="{StaticResource StatusLabel}" Visibility="Collapsed" HorizontalAlignment="Stretch"/>
+                </Grid>
                 <DockPanel x:Name="SearchPage" Visibility="Collapsed" LastChildFill="True">
                     <DockPanel LastChildFill="True" DockPanel.Dock="Top">
                         <Label Content="Search Query:" Style="{StaticResource KeyLabel}" DockPanel.Dock="Left"/>
