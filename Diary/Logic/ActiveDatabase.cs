@@ -131,7 +131,7 @@ namespace Diary.Logic {
             if (CurrentUser == null) {
                 return false;
             }
-            EntreeSaver.SerializeToXmlFile(CurrentEntrees, $"{CurrentUser.Username}-Diary");
+            EntreeSaver.SerializeToXmlFile(CurrentEntrees, $"Diary-Of-{CurrentUser.Username}");
             return true;
         }
     }

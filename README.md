@@ -24,7 +24,7 @@ This is a WPF Diary app that uses a local encrypted scalable database.
 
 ### Possible future changes that I might add
 
-* Exporting user diary to xml (Backend already done).
+* Out of ideas - I'd love your suggestions.
 
 ### Notes
 

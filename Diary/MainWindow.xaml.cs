@@ -154,6 +154,18 @@ namespace Diary {
             }
         }
 
+        private void btnExportDiary_Click(object sender, RoutedEventArgs e) {
+            Invoke(() => lblExportStatus.Foreground = Red);
+            Invoke(() => lblExportStatus.Visibility = Visibility.Visible);
+            var exportResults = Adb.ExportEntrees();
+            if (!exportResults) {
+                Invoke(() => lblExportStatus.Content = "Failed to export user Diary!");
+            } else {
+                Invoke(() => lblExportStatus.Foreground = Green);
+                Invoke(() => lblExportStatus.Content = "Successfully export user Diary!");
+            }
+        }
+
         private void btnRemoveUser_Click(object sender, RoutedEventArgs e) {
             var password = pswBoxRemove.Password;
             Invoke(() => lblRemoveUserStatus.Foreground = Red);
