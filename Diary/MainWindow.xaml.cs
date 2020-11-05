@@ -46,18 +46,21 @@ namespace Diary {
             CollapseAllPages();
             Invoke(() => btnMain.IsEnabled = false);
             Invoke(() => MainPage.Visibility = Visibility.Visible);
+            Invoke(() => txtTitle.Focus());
         }
 
         private void btnSearch_Click(object sender, RoutedEventArgs e) {
             CollapseAllPages();
             Invoke(() => btnSearch.IsEnabled = false);
             Invoke(() => SearchPage.Visibility = Visibility.Visible);
+            Invoke(() => txtSearch.Focus());
         }
 
         private void btnMore_Click(object sender, RoutedEventArgs e) {
             CollapseAllPages();
             Invoke(() => btnMore.IsEnabled = false);
             Invoke(() => MorePage.Visibility = Visibility.Visible);
+            Invoke(() => txtRemoveEntree.Focus());
         }
 
         private void btnInfo_Click(object sender, RoutedEventArgs e) {

@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\Diary",
-    "\\Diary\\Properties"
+    "\\Diary\\Properties",
+    "\\Diary\\Theme"
   ],
-  "SelectedNode": "\\Diary\\MainWindow.xaml",
+  "SelectedNode": "\\Diary\\Theme\\Listboxes.xaml",
   "PreviewInSolutionExplorer": false
 }

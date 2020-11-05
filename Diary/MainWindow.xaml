@@ -84,7 +84,9 @@
                         <TextBox x:Name="txtSearch" MinWidth="120" AcceptsReturn="False" KeyDown="txtSearch_KeyDown" TextChanged="txtSearch_TextChanged"/>
                     </DockPanel>
                     <Label x:Name="lblSearchStatus" Style="{StaticResource StatusLabel}" Visibility="Collapsed" DockPanel.Dock="Top" HorizontalAlignment="Stretch"/>
-                    <ListBox x:Name="lstSearchResults" Style="{StaticResource EntreesListbox}"/>
+                    <ScrollViewer x:Name="searchScrollViewer">
+                        <ListBox x:Name="lstSearchResults" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource EntreesListbox}"/>
+                    </ScrollViewer>
                 </DockPanel>
                 <StackPanel x:Name="MorePage" Visibility="Collapsed" Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">

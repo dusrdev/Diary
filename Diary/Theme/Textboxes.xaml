@@ -2,13 +2,14 @@
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Basics.xaml" />
+        <ResourceDictionary Source="Labels.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
     <Style TargetType="TextBox">
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
         <Setter Property="ContextMenu" Value="{DynamicResource txtContextMenu}" />
-        <Setter Property="Padding" Value="5, 2.5" />
+        <Setter Property="Padding" Value="2.5" />
         <Setter Property="UseLayoutRounding" Value="True" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="BorderBrush" Value="{StaticResource Grey}" />
@@ -104,7 +105,7 @@
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
         <Setter Property="ContextMenu" Value="{DynamicResource txtContextMenu}" />
-        <Setter Property="Padding" Value="1" />
+        <Setter Property="Padding" Value="2.5" />
         <Setter Property="UseLayoutRounding" Value="True" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="AcceptsReturn" Value="False" />
@@ -117,7 +118,8 @@
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="HorizontalContentAlignment" Value="Left"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Top"/>
+        <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBox}">
@@ -187,13 +189,13 @@
     </ContextMenu>
 
     <Style TargetType="ContextMenu">
-        <Setter Property="Background" Value="{StaticResource LightGrey}" />
+        <Setter Property="Background" Value="{StaticResource White}" />
         <Setter Property="FontFamily" Value="{StaticResource DefaultFont}" />
         <Setter Property="UseLayoutRounding" Value="True" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ContextMenu">
-                    <Border CornerRadius="0" Background="{TemplateBinding Background}" BorderBrush="{StaticResource DarkGrey}" BorderThickness="2" SnapsToDevicePixels="True">
+                    <Border CornerRadius="0" Background="{TemplateBinding Background}" BorderBrush="{StaticResource DarkGrey}" BorderThickness="1" SnapsToDevicePixels="True">
                         <ItemsPresenter />
                     </Border>
                 </ControlTemplate>
@@ -204,27 +206,33 @@
     <Style TargetType="MenuItem">
         <Setter Property="UseLayoutRounding" Value="True" />
         <Setter Property="Background" Value="{StaticResource LightGrey}" />
-        <Setter Property="Foreground" Value="{StaticResource Blue}" />
+        <Setter Property="Foreground" Value="{StaticResource DSGreen}" />
         <Setter Property="FontFamily" Value="{StaticResource DefaultFont}" />
         <Setter Property="FontSize" Value="16" />
-        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="MenuItem">
                     <Border Name="border" CornerRadius="0" UseLayoutRounding="{TemplateBinding UseLayoutRounding}" BorderBrush="{StaticResource DarkGrey}" Background="{TemplateBinding Background}" BorderThickness="1" SnapsToDevicePixels="True">
-                        <DockPanel VerticalAlignment="Center" UseLayoutRounding="{TemplateBinding UseLayoutRounding}">
-                            <Label Name="lblGesture" DockPanel.Dock="Right" Width="65" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Right" Content="{TemplateBinding InputGestureText}" Foreground="{TemplateBinding Foreground}" />
-                            <Separator Name="separator" DockPanel.Dock="Right" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Visibility="Visible" />
-                            <Label Name="lblHeader" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Content="{TemplateBinding Header}" Foreground="{TemplateBinding Foreground}" />
-                        </DockPanel>
+                        <Grid VerticalAlignment="Center" UseLayoutRounding="{TemplateBinding UseLayoutRounding}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Name="lblHeader" Grid.Column="0" HorizontalContentAlignment="Left" Content="{TemplateBinding Header}" Style="{StaticResource KeyLabel}" />
+                            <Separator Name="separator" Grid.Column="1" HorizontalAlignment="Right" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Visibility="Visible" />
+                            <Label Name="lblGesture" Style="{StaticResource PropertyLabel}" Foreground="{TemplateBinding Foreground}" Grid.Column="2" HorizontalContentAlignment="Right" Content="{TemplateBinding InputGestureText}" />
+                        </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Foreground" Value="{StaticResource DarkGrey}" />
+                            <Setter Property="Foreground" Value="{StaticResource DSGray}" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="{StaticResource DarkGrey}" />
-                            <Setter Property="Foreground" Value="{StaticResource LightBlue}" />
+                            <Setter Property="Background" Value="{StaticResource DSDarkBlue}" />
+                            <Setter Property="Foreground" Value="{StaticResource DSGreen}" />
+                            <Setter TargetName="lblHeader" Property="Foreground" Value="{StaticResource DSGreen}"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
                             <Setter Property="Foreground" Value="{StaticResource White}" />

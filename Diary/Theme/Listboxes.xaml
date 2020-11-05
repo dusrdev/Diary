@@ -21,6 +21,18 @@
         <Setter Property="ItemContainerStyle" Value="{DynamicResource EntreeListboxItem}" />
     </Style>
 
+    <Style TargetType="ListView">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <ScrollViewer>
+                        <ItemsPresenter></ItemsPresenter>
+                    </ScrollViewer>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="EntreeListboxItem" TargetType="ListBoxItem">
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="OverridesDefaultStyle" Value="True" />
@@ -47,14 +59,14 @@
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            <Label Content="ID:" Style="{StaticResource KeyLabel}" Grid.Row="0" Grid.Column="0"/>
-                            <Label Content="{Binding Path=ID}" Style="{StaticResource PropertyLabel}" Foreground="{StaticResource DSDarkBlue}" Grid.Row="0" Grid.Column="1"/>
-                            <Label Content="Date:" Style="{StaticResource KeyLabel}" Grid.Row="1" Grid.Column="0"/>
-                            <Label Content="{Binding Path=Date}" Style="{StaticResource PropertyLabel}" Foreground="{StaticResource DSDarkBlue}" Grid.Row="1" Grid.Column="1"/>
-                            <Label Content="Title:" Style="{StaticResource KeyLabel}" Grid.Row="2" Grid.Column="0"/>
-                            <Label Content="{Binding Path=Title}" Style="{StaticResource PropertyLabel}" Grid.Row="2" Grid.Column="1"/>
-                            <Label Content="Body:" Style="{StaticResource KeyLabel}" Grid.Row="3" Grid.Column="0"/>
-                            <TextBox Text="{Binding Path=Body}" Style="{StaticResource Readonly}" Grid.Row="3" Grid.Column="1"/>
+                            <Label Content="ID:" Style="{StaticResource KeyLabel}" VerticalContentAlignment="Top" Grid.Row="0" Grid.Column="0"/>
+                            <Label Content="{Binding Path=ID}" Style="{StaticResource PropertyLabel}" VerticalContentAlignment="Top" Foreground="{StaticResource DSDarkBlue}" Grid.Row="0" Grid.Column="1"/>
+                            <Label Content="Date:" Style="{StaticResource KeyLabel}" VerticalContentAlignment="Top" Grid.Row="1" Grid.Column="0"/>
+                            <Label Content="{Binding Path=Date}" Style="{StaticResource PropertyLabel}" VerticalContentAlignment="Top" Foreground="{StaticResource DSDarkBlue}" Grid.Row="1" Grid.Column="1"/>
+                            <Label Content="Title:" Style="{StaticResource KeyLabel}" VerticalContentAlignment="Top" Grid.Row="2" Grid.Column="0"/>
+                            <Label Content="{Binding Path=Title}" Style="{StaticResource PropertyLabel}" VerticalContentAlignment="Top" Grid.Row="2" Grid.Column="1"/>
+                            <Label Content="Body:" Style="{StaticResource KeyLabel}" VerticalContentAlignment="Top" Grid.Row="3" Grid.Column="0"/>
+                            <TextBox Text="{Binding Path=Body}" Grid.Row="3" Grid.Column="1" Style="{StaticResource Readonly}" VerticalAlignment="Stretch" VerticalContentAlignment="Top"/>
                         </Grid>
                     </Border>
                 </ControlTemplate>
