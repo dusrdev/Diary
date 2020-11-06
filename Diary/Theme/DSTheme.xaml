@@ -159,7 +159,7 @@
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
         <Setter Property="ContextMenu" Value="{DynamicResource txtContextMenu}" />
-        <Setter Property="Padding" Value="5, 2.5" />
+        <Setter Property="Padding" Value="2.5" />
         <Setter Property="UseLayoutRounding" Value="True" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="BorderBrush" Value="{StaticResource Grey}" />
@@ -216,7 +216,7 @@
         <Setter Property="SelectionBrush" Value="{StaticResource Highlight}" />
         <Setter Property="FontFamily" Value="{StaticResource DefaultFont}" />
         <Setter Property="FontSize" Value="16" />
-        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="FontWeight" Value="Medium" />
         <Setter Property="Foreground" Value="{StaticResource Black}" />
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
@@ -646,13 +646,13 @@
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
                             <Label Content="ID:" Style="{StaticResource KeyLabel}" VerticalContentAlignment="Top" Grid.Row="0" Grid.Column="0"/>
-                            <Label Content="{Binding Path=ID}" Style="{StaticResource PropertyLabel}" VerticalContentAlignment="Top" Foreground="{StaticResource DSDarkBlue}" Grid.Row="0" Grid.Column="1"/>
+                            <Label Content="{Binding Path=ID}" Style="{StaticResource PropertyLabel}" VerticalContentAlignment="Top" Grid.Row="0" Grid.Column="1"/>
                             <Label Content="Date:" Style="{StaticResource KeyLabel}" VerticalContentAlignment="Top" Grid.Row="1" Grid.Column="0"/>
-                            <Label Content="{Binding Path=Date}" Style="{StaticResource PropertyLabel}" VerticalContentAlignment="Top" Foreground="{StaticResource DSDarkBlue}" Grid.Row="1" Grid.Column="1"/>
+                            <Label Content="{Binding Path=Date}" Style="{StaticResource PropertyLabel}" VerticalContentAlignment="Top" Grid.Row="1" Grid.Column="1"/>
                             <Label Content="Title:" Style="{StaticResource KeyLabel}" VerticalContentAlignment="Top" Grid.Row="2" Grid.Column="0"/>
                             <Label Content="{Binding Path=Title}" Style="{StaticResource PropertyLabel}" VerticalContentAlignment="Top" Grid.Row="2" Grid.Column="1"/>
                             <Label Content="Body:" Style="{StaticResource KeyLabel}" VerticalContentAlignment="Top" Grid.Row="3" Grid.Column="0"/>
-                            <TextBox Text="{Binding Path=Body}" Grid.Row="3" Grid.Column="1" Style="{StaticResource Readonly}" VerticalAlignment="Stretch" VerticalContentAlignment="Top"/>
+                            <TextBox Text="{Binding Path=Body}" Padding="2.5" Grid.Row="3" Grid.Column="1" Style="{StaticResource Readonly}" VerticalAlignment="Stretch" VerticalContentAlignment="Top"/>
                         </Grid>
                     </Border>
                 </ControlTemplate>

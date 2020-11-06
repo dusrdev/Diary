@@ -1,6 +1,5 @@
 ﻿using Diary.Logic;
 using System;
-using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,10 +15,13 @@ namespace Diary {
         private ActiveDatabase Adb { get; set; }
         private Brush Red { get; set; }
 
+        
+
         public MainWindow() {
             InitializeComponent();
             Red = (Brush)FindResource("Red");
             Adb = new ActiveDatabase();
+            Invoke(() => LblVersion.Content = AssemblyVersion);
             Invoke(() => TxtUsername.Focus());
         }
 
@@ -90,6 +92,9 @@ namespace Diary {
         }
 
         private void txtBody_TextChanged(object sender, TextChangedEventArgs e) {
+            if (LblMainStatus.Visibility == Visibility.Visible) {
+                Invoke(() => LblMainStatus.Visibility = Visibility.Collapsed);
+            }
             var body = TxtBody.Text;
             var lines = body.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).Length;
             var words = body.Replace(Environment.NewLine, " ").Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries).Length;
@@ -104,6 +109,7 @@ namespace Diary {
 
         private async void btnSearchQuery_Click(object sender, RoutedEventArgs e) {
             var query = TxtSearch.Text;
+            Invoke(() => LstSearchResults.ItemsSource = null);
             Invoke(() => LblSearchStatus.Visibility = Visibility.Visible);
             if (string.IsNullOrEmpty(query)) {
                 Invoke(() => LblSearchStatus.Foreground = Red);
@@ -113,14 +119,16 @@ namespace Diary {
                 if (results == null || results.Count == 0) {
                     Invoke(() => LblSearchStatus.Content = "Found no results :(");
                 } else {
-                    Invoke(() => LblSearchStatus.Content = $"Found {results.Count} results!");
+                    Invoke(() => LblSearchStatus.Content = $"Results found: {results.Count}");
                     Invoke(() => LstSearchResults.ItemsSource = results);
                 }
             }
         }
 
         private void txtSearch_TextChanged(object sender, TextChangedEventArgs e) {
-            Invoke(() => LblSearchStatus.Visibility = Visibility.Collapsed);
+            if (LblSearchStatus.Visibility == Visibility.Visible) {
+                Invoke(() => LblSearchStatus.Visibility = Visibility.Collapsed);
+            }
         }
 
         private void txtSearch_KeyDown(object sender, KeyEventArgs e) {

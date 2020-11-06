@@ -81,7 +81,7 @@
                     <DockPanel LastChildFill="True" DockPanel.Dock="Top">
                         <Label Content="Search Query:" Style="{StaticResource KeyLabel}" DockPanel.Dock="Left"/>
                         <Button x:Name="BtnSearchQuery" Content="Search" DockPanel.Dock="Right" Click="btnSearchQuery_Click"/>
-                        <TextBox x:Name="TxtSearch" ToolTip="Key-word search with &quot;Explicit&quot; and [Date] options" MinWidth="120" AcceptsReturn="False" KeyDown="txtSearch_KeyDown" TextChanged="txtSearch_TextChanged"/>
+                        <TextBox x:Name="TxtSearch" ToolTip="Key-word search with &quot;Explicit&quot; and [Date] or *All options" MinWidth="120" AcceptsReturn="False" KeyDown="txtSearch_KeyDown" TextChanged="txtSearch_TextChanged"/>
                     </DockPanel>
                     <Label x:Name="LblSearchStatus" Style="{StaticResource StatusLabel}" Visibility="Collapsed" DockPanel.Dock="Top" HorizontalAlignment="Stretch"/>
                     <ScrollViewer>
@@ -121,15 +121,18 @@
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <Label Content="Developer:" Style="{StaticResource KeyLabel}" Grid.Row="0" Grid.Column="0"/>
                         <Label Content="David Shnayder" Style="{StaticResource PropertyLabel}" Grid.Row="0" Grid.Column="1"/>
                         <Label Content="Email:" Style="{StaticResource KeyLabel}" Grid.Row="1" Grid.Column="0"/>
                         <Label Content="dusrdev@gmail.com" Style="{StaticResource PropertyLabel}" Grid.Row="1" Grid.Column="1"/>
-                        <Label Content="Release Date:" Style="{StaticResource KeyLabel}" Grid.Row="2" Grid.Column="0"/>
-                        <Label Content="November 2020" Style="{StaticResource PropertyLabel}" Grid.Row="2" Grid.Column="1"/>
-                        <Label Content="Icon made by:" Style="{StaticResource KeyLabel}" Grid.Row="3" Grid.Column="0"/>
-                        <Label Content="Flaticon.com" Style="{StaticResource PropertyLabel}" Grid.Row="3" Grid.Column="1"/>
+                        <Label Content="Version:" Style="{StaticResource KeyLabel}" Grid.Row="2" Grid.Column="0"/>
+                        <Label x:Name="LblVersion" Style="{StaticResource PropertyLabel}" Grid.Row="2" Grid.Column="1"/>
+                        <Label Content="GitHub:" Style="{StaticResource KeyLabel}" Grid.Row="3" Grid.Column="0"/>
+                        <Label Content="/dusrdev/Diary" Style="{StaticResource PropertyLabel}" Grid.Row="3" Grid.Column="1"/>
+                        <Label Content="Icon made by:" Style="{StaticResource KeyLabel}" Grid.Row="4" Grid.Column="0"/>
+                        <Label Content="Flaticon.com" Style="{StaticResource PropertyLabel}" Grid.Row="4" Grid.Column="1"/>
                     </Grid>
                 </StackPanel>
             </Grid>

@@ -47,6 +47,9 @@ namespace Diary.Logic {
             if (CurrentEntrees == null || CurrentEntrees.Count == 0) {
                 return results;
             }
+            if (query == "*") {
+                return CurrentEntrees;
+            }
             var sQuery = query.Queryable();
             if (query.HasBorders("[", "]")) {
                 sQuery = query.Subset(1, 1).Queryable();
@@ -120,7 +123,7 @@ namespace Diary.Logic {
             CurrentUser = matchingUser;
             CurrentUser.Password = password;
             EntreeSaver = new MySerializer(CurrentUser.Password);
-            if (Native.DoesFileExist($"Edb{CurrentUser.UserID}")) {
+            if (Native.DoesFileExist($"Edb{CurrentUser.UserID}.dat")) {
                 CurrentEntrees = EntreeSaver.DeserializeFromFile<List<DiaryEntree>>($"Edb{CurrentUser.UserID}");
             } else {
                 CurrentEntrees = new List<DiaryEntree>();

@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Windows.Threading;
 
 namespace Diary.Logic {
     public static class Native {
         public static void Invoke(Action action) => Dispatcher.CurrentDispatcher.Invoke(action);
+
+        public static Version AssemblyVersion => Assembly.GetEntryAssembly()?.GetName().Version;
 
         /// <summary>
         /// Function that attempts to remove file
