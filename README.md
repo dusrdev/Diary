@@ -8,7 +8,7 @@ This is a WPF Diary app that uses a local encrypted scalable database.
 
 + Login page.
 1. Main page - Add new diary entry.
-2. Search page - Allows to search all entries by keywords.
+2. Search page - Allows to search all entries by keywords, "Explicit" and [Date].
 3. More option page - Option to remove an entry by ID (can be found throught search) and remove currently logged user.
 4. Info page - Display information about me, the stable release date and the icon author.
 

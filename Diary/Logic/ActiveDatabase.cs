@@ -114,18 +114,18 @@ namespace Diary.Logic {
         public bool Login(string username, string password) {
             if (!Udb.Exists(u => u.Username == username)) {
                 return false;
-            } else {
-                var matchingUser = Udb.Find(u => u.Username == username);
-                if (Aes.IsValid(password, matchingUser.HashedPassword)) {
-                    CurrentUser = matchingUser;
-                    CurrentUser.Password = password;
-                    EntreeSaver = new MySerializer(CurrentUser.Password);
-                    CurrentEntrees = EntreeSaver.DeserializeFromFile<List<DiaryEntree>>($"Edb{CurrentUser.UserID}");
-                    return true;
-                } else {
-                    return false;
-                }
             }
+            var matchingUser = Udb.Find(u => u.Username == username);
+            if (!Aes.IsValid(password, matchingUser.HashedPassword)) return false;
+            CurrentUser = matchingUser;
+            CurrentUser.Password = password;
+            EntreeSaver = new MySerializer(CurrentUser.Password);
+            if (Native.DoesFileExist($"Edb{CurrentUser.UserID}")) {
+                CurrentEntrees = EntreeSaver.DeserializeFromFile<List<DiaryEntree>>($"Edb{CurrentUser.UserID}");
+            } else {
+                CurrentEntrees = new List<DiaryEntree>();
+            }
+            return true;
         }
 
         /// <summary>

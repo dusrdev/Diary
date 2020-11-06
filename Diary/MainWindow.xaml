@@ -67,7 +67,7 @@
                     <Label Content="Title:" Style="{StaticResource KeyLabel}" Grid.Row="0" Grid.Column="0"/>
                     <TextBox x:Name="TxtTitle" MaxLines="1" Grid.Row="0" Grid.Column="1" DockPanel.Dock="Right"/>
                     <Border Height="5" Grid.Row="1" Grid.Column="0" />
-                    <Label Content="Body:" Style="{StaticResource KeyLabel}" Grid.Row="2" Grid.Column="0"/>
+                    <Label Content="Body:" VerticalContentAlignment="Top" Style="{StaticResource KeyLabel}" Grid.Row="2" Grid.Column="0"/>
                     <TextBox x:Name="TxtBody" Style="{StaticResource Body}" Grid.Row="2" Grid.Column="1" GotKeyboardFocus="txtBody_GotKeyboardFocus" TextChanged="txtBody_TextChanged"/>
                     <Border Height="5" Grid.Row="3" Grid.Column="0" />
                     <DockPanel Grid.Row="4" Grid.Column="1" LastChildFill="True">
