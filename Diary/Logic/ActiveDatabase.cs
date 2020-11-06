@@ -1,6 +1,4 @@
-﻿using System;
-using System.CodeDom.Compiler;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using static Diary.Logic.Logger;
 
@@ -45,11 +43,15 @@ namespace Diary.Logic {
         /// <param name="query">search query</param>
         /// <returns>Results (Not found if empty)</returns>
         public List<DiaryEntree> Search(string query) {
-            List<DiaryEntree> results = new List<DiaryEntree>();
+            var results = new List<DiaryEntree>();
             if (CurrentEntrees == null || CurrentEntrees.Count == 0) {
                 return results;
             }
             var sQuery = query.Queryable();
+            if (query.HasBorders("[", "]")) {
+                sQuery = query.Subset(1, 1).Queryable();
+                return CurrentEntrees.FindAll(e => e.Date.QuerySearch(sQuery));
+            }
             foreach (var entree in CurrentEntrees) {
                 if (entree.Title.QuerySearch(sQuery) || entree.Body.QuerySearch(sQuery)) {
                     results.Add(entree);
@@ -61,14 +63,14 @@ namespace Diary.Logic {
         /// <summary>
         /// Remove entree by id (displayed in search window)
         /// </summary>
-        /// <param name="queryID">ID of desired entree</param>
+        /// <param name="queryId">ID of desired entree</param>
         /// <returns>indication of success</returns>
-        public bool RemoveEntree(int queryID) {
-            if (!CurrentEntrees.Exists(e => e.ID == queryID)) {
+        public bool RemoveEntree(int queryId) {
+            if (!CurrentEntrees.Exists(e => e.ID == queryId)) {
                 return false;
             }
-            CurrentEntrees.RemoveAll(e => e.ID == queryID);
-            for (int i = 0; i < CurrentEntrees.Count; i++) {
+            CurrentEntrees.RemoveAll(e => e.ID == queryId);
+            for (var i = 0; i < CurrentEntrees.Count; i++) {
                 CurrentEntrees[i].ID = i;
             }
             EntreeSaver.SerializeToFile(CurrentEntrees, $"Edb{CurrentUser.UserID}");
@@ -78,14 +80,17 @@ namespace Diary.Logic {
         /// <summary>
         /// Add entree
         /// </summary>
-        /// <param name="newEntree">initialize before sending as argument</param>
+        /// <param name="title">Entree title</param>
+        /// <param name="body">Entree body</param>
         /// <returns>indication of success</returns>
         public bool AddEntree(string title, string body) {
-            if (CurrentEntrees == null) {
-                CurrentEntrees = new List<DiaryEntree>();
+            CurrentEntrees ??= new List<DiaryEntree>();
+            var cleanBody = body.RemoveWhiteSpace();
+            if (CurrentEntrees.Exists(e => e.Body.RemoveWhiteSpace() == cleanBody)) {
+                return false;
             }
-            var newEntreeID = CurrentEntrees.Count > 0 ? CurrentEntrees.Last().ID + 1 : 0;
-            var newEntree = new DiaryEntree(title, body, newEntreeID);
+            var newEntreeId = CurrentEntrees.Count > 0 ? CurrentEntrees.Last().ID + 1 : 0;
+            var newEntree = new DiaryEntree(title, body, newEntreeId);
             CurrentEntrees.Add(newEntree);
             EntreeSaver.SerializeToFile(CurrentEntrees, $"Edb{CurrentUser.UserID}");
             return true;

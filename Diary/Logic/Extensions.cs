@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 
 namespace Diary.Logic {
     public static class Extensions {
@@ -15,6 +16,41 @@ namespace Diary.Logic {
             str = str.ToLower();
             toCheck = toCheck.ToLower();
             return str.Contains(toCheck);
+        }
+
+        /// <summary>
+        /// Removes all whitespace characters from text
+        /// In this app it used to compare entree bodies to avoid duplicates with different spacing
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns>String without any whitespaces</returns>
+        public static string RemoveWhiteSpace(this string str) {
+            return new string(str.ToCharArray()
+        .Where(c => !char.IsWhiteSpace(c))
+        .ToArray());
+        }
+
+        /// <summary>
+        /// Works essentially like [start:end] in Python
+        /// A more convenient way of using Substring (No need to calculate the length you need)
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="fromStart">Distance from start</param>
+        /// <param name="fromEnd">Distance from end</param>
+        /// <returns>Subset of string</returns>
+        public static string Subset(this string str, int fromStart, int fromEnd) {
+            return str.Substring(fromStart, str.Length - fromEnd - fromStart);
+        }
+
+        /// <summary>
+        /// Checks if a string is bordered by 2 strings
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="startBorder">First border</param>
+        /// <param name="endBorder">Last border</param>
+        /// <returns>bool</returns>
+        public static bool HasBorders(this string str, string startBorder, string endBorder) {
+            return str.StartsWith(startBorder) && str.EndsWith(endBorder);
         }
 
         /// <summary>
