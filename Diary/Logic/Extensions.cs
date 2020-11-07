@@ -90,13 +90,13 @@ namespace Diary.Logic {
         /// <returns>Array of query parts</returns>
         public static string[] Queryable(this string text) {
             List<string> parts = new List<string>();
-            int first = text.IndexOf('"');
-            int last = text.LastIndexOf('"');
-            bool doesContainExplicitSearch = first >= 0 && last > first;
+            var first = text.IndexOf("\"", StringComparison.Ordinal);
+            var last = text.LastIndexOf("\"", StringComparison.Ordinal);
+            var doesContainExplicitSearch = first >= 0 && last > first;
             if (doesContainExplicitSearch) {
-                int length = last - first;
-                string exp = text.Substring(first + 1, length - 1);
-                text.Replace($"\"{exp}\"", " ");
+                var length = last - first;
+                var exp = text.Substring(first + 1, length - 1);
+                text = text.Replace($"\"{exp}\"", " ");
                 parts.Add(exp);
                 parts.AddRange(text.ToWords());
             } else {

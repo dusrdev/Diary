@@ -13,13 +13,9 @@ namespace Diary {
     /// </summary>
     public partial class MainWindow : Window {
         private ActiveDatabase Adb { get; set; }
-        private Brush Red { get; set; }
-
-        
 
         public MainWindow() {
             InitializeComponent();
-            Red = (Brush)FindResource("Red");
             Adb = new ActiveDatabase();
             Invoke(() => LblVersion.Content = AssemblyVersion);
             Invoke(() => TxtUsername.Focus());
@@ -74,14 +70,12 @@ namespace Diary {
             var body = TxtBody.Text;
             Invoke(() => LblMainStatus.Visibility = Visibility.Visible);
             if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(body)) {
-                Invoke(() => LblMainStatus.Foreground = Red);
                 Invoke(() => LblMainStatus.Content = "Both title and body cannot be empty!");
             } else {
                 var add = await Task.Run(() => Adb.AddEntree(title, body));
                 if (add) {
                     Invoke(() => LblMainStatus.Content = "Successfully added the entry!");
                 } else {
-                    Invoke(() => LblMainStatus.Foreground = Red);
                     Invoke(() => LblMainStatus.Content = "Failed to add entry!");
                 }
             }
@@ -112,7 +106,6 @@ namespace Diary {
             Invoke(() => LstSearchResults.ItemsSource = null);
             Invoke(() => LblSearchStatus.Visibility = Visibility.Visible);
             if (string.IsNullOrEmpty(query)) {
-                Invoke(() => LblSearchStatus.Foreground = Red);
                 Invoke(() => LblSearchStatus.Content = "Cannot search with empty text!");
             } else {
                 var results = await Task.Run(() => Adb.Search(query));
@@ -145,17 +138,14 @@ namespace Diary {
             var id = TxtRemoveEntree.Text;
             Invoke(() => LblRemoveStatus.Visibility = Visibility.Visible);
             if (string.IsNullOrEmpty(id)) {
-                Invoke(() => LblRemoveStatus.Foreground = Red);
                 Invoke(() => LblRemoveStatus.Content = "Please enter ID!");
             } else {
                 var status = int.TryParse(id, out var convertedId);
                 if (!status) {
-                    Invoke(() => LblRemoveStatus.Foreground = Red);
                     Invoke(() => LblRemoveStatus.Content = "ID must be numeric!");
                 } else {
                     var removeStatus = await Task.Run(() => Adb.RemoveEntree(convertedId));
                     if (!removeStatus) {
-                        Invoke(() => LblRemoveStatus.Foreground = Red);
                         Invoke(() => LblRemoveStatus.Content = "Failed to remove entry, confirm ID!");
                     } else {
                         Invoke(() => LblRemoveStatus.Content = "Successfully removed entry!");
@@ -168,7 +158,6 @@ namespace Diary {
             Invoke(() => LblExportStatus.Visibility = Visibility.Visible);
             var exportResults = await Task.Run(() => Adb.ExportEntrees());
             if (!exportResults) {
-                Invoke(() => LblExportStatus.Foreground = Red);
                 Invoke(() => LblExportStatus.Content = "Failed to export user Diary!");
             } else {
                 Invoke(() => LblExportStatus.Content = "Successfully export user Diary!");
@@ -179,12 +168,10 @@ namespace Diary {
             var password = PswBoxRemove.Password;
             Invoke(() => LblRemoveUserStatus.Visibility = Visibility.Visible);
             if (password != Adb.CurrentUser.Password) {
-                Invoke(() => LblRemoveUserStatus.Foreground = Red);
                 Invoke(() => LblRemoveUserStatus.Content = "Wrong password!");
             } else {
                 var removeStatus = await Task.Run(() => Adb.RemoveCurrentUser());
                 if (!removeStatus) {
-                    Invoke(() => LblRemoveUserStatus.Foreground = Red);
                     Invoke(() => LblRemoveUserStatus.Content = "Failed to remove user, check log!");
                 } else {
                     Invoke(() => LblRemoveUserStatus.Content = "Successfully removed user!");
@@ -213,12 +200,10 @@ namespace Diary {
             var password = PswBox.Password;
             Invoke(() => LblLoginStatus.Visibility = Visibility.Visible);
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password)) {
-                Invoke(() => LblLoginStatus.Foreground = Red);
                 Invoke(() => LblLoginStatus.Content = "Both username and password cannot be empty!");
             } else {
                 var createResult = await Task.Run(() => Adb.AddUser(new User(username, password)));
                 if (!createResult) {
-                    Invoke(() => LblLoginStatus.Foreground = Red);
                     Invoke(() => LblLoginStatus.Content = "Failed to create user, check log!");
                 } else {
                     Invoke(() => LoginPage.Visibility = Visibility.Collapsed);
@@ -232,12 +217,10 @@ namespace Diary {
             var password = PswBox.Password;
             Invoke(() => LblLoginStatus.Visibility = Visibility.Visible);
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password)) {
-                Invoke(() => LblLoginStatus.Foreground = Red);
                 Invoke(() => LblLoginStatus.Content = "Both username and password cannot be empty!");
             } else {
                 var loginResult = await Task.Run(() => Adb.Login(username, password));
                 if (!loginResult) {
-                    Invoke(() => LblLoginStatus.Foreground = Red);
                     Invoke(() => LblLoginStatus.Content = "Wrong Credentials!");
                 } else {
                     Invoke(() => LoginPage.Visibility = Visibility.Collapsed);
