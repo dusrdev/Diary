@@ -97,13 +97,13 @@
                     </StackPanel>
                     <Border Height="10"/>
                     <StackPanel Orientation="Horizontal">
-                        <Label Content="Export user Diary to .xml ->" Style="{StaticResource KeyLabel}" FontWeight="Bold"/>
+                        <Label Content="Export user Diary to .xml >" Style="{StaticResource KeyLabel}" FontWeight="Bold"/>
                         <Button x:Name="BtnExportDiary" Content="Export" Click="btnExportDiary_Click"/>
                         <Label x:Name="LblExportStatus" Style="{StaticResource StatusLabel}" Visibility="Collapsed"/>
                     </StackPanel>
                     <Border Height="10"/>
                     <StackPanel Orientation="Horizontal">
-                        <Label Content="Remove current user ->" Style="{StaticResource KeyLabel}" FontWeight="Bold" Margin="0,0,50,0"/>
+                        <Label Content="Remove current user >" Style="{StaticResource KeyLabel}" FontWeight="Bold"/>
                         <Label Content="Password:" Style="{StaticResource KeyLabel}"/>
                         <PasswordBox x:Name="PswBoxRemove" MinWidth="120" KeyDown="pswBoxRemove_KeyDown"/>
                         <Button x:Name="BtnRemoveUser" Content="Remove" Click="btnRemoveUser_Click"/>

@@ -1,4 +1,4 @@
-# WPF Diary
+# WPF Diary : Version 1.1.1.0
 
 Hello everyone!
 
@@ -22,10 +22,15 @@ This is a WPF Diary app that uses a local encrypted scalable database.
 + After login only that user's entries are loaded into memory, and the program can't decrypt any file without the password.
 * More on previous point: Only after login in, the program received the Diary decryption key, and the key fits only that user.
 
-### Possible future changes that I might add
+### Screenshots
 
-* Out of ideas - I'd love your suggestions.
-
-### Notes
-
-If anyone would like to help it is more than welcome, if you have suggestions I would love to hear them.
+* Login page:
+![alt text](https://github.com/dusrdev/Diary/blob/main/Images/LoginPageScreenshot.png?raw=true)
+* Main page:
+![alt text](https://github.com/dusrdev/Diary/blob/main/Images/MainPageScreenshot.png?raw=true)
+* Search page:
+![alt text](https://github.com/dusrdev/Diary/blob/main/Images/SearchPageScreenshot.png?raw=true)
+* More option page:
+![alt text](https://github.com/dusrdev/Diary/blob/main/Images/MorePageScreenshot.png?raw=true)
+* Info page:
+![alt text](https://github.com/dusrdev/Diary/blob/main/Images/InfoPageScreenshot.png?raw=true)
