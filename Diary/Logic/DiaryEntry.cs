@@ -1,32 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Diary.Logic {
     [Serializable()]
-    public class DiaryEntree : ISerializable {
+    public class DiaryEntry : ISerializable {
         public int ID { get; set; }
         public string Date { get; set; }
         public string Title { get; set; }
         public string Body { get; set; }
 
-        public DiaryEntree() { }
+        public DiaryEntry() { }
 
         /// <summary>
         /// Initialization function
         /// </summary>
         /// <param name="title"></param>
         /// <param name="body"></param>
-        /// <param name="entreeID">ID of the last entry before this one</param>
-        public DiaryEntree(string title, string body, int entreeID) {
+        /// <param name="entryId">ID of the last entry before this one</param>
+        public DiaryEntry(string title, string body, int entryId) {
             Title = title.ToTitle();
             Body = body;
             Date = DateTime.Now.FullDateAndTime();
-            ID = entreeID;
+            ID = entryId;
         }
 
         /// <summary>
@@ -42,19 +37,15 @@ namespace Diary.Logic {
         }
 
         /// <summary>
-        /// Deserialization function
+        /// De-serialization function
         /// </summary>
         /// <param name="info"></param>
         /// <param name="ctxt"></param>
-        public DiaryEntree(SerializationInfo info, StreamingContext ctxt) {
+        public DiaryEntry(SerializationInfo info, StreamingContext ctxt) {
             ID = (int)info.GetValue("ID", typeof(int));
             Date = (string)info.GetValue("Date", typeof(string));
             Title = (string)info.GetValue("Title", typeof(string));
             Body = (string)info.GetValue("Body", typeof(string));
-        }
-
-        public override string ToString() {
-            return "Not implemented to listbox";
         }
     }
 }

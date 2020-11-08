@@ -86,7 +86,7 @@
     </Compile>
     <Compile Include="Logic\ActiveDatabase.cs" />
     <Compile Include="Logic\Aes.cs" />
-    <Compile Include="Logic\DiaryEntree.cs" />
+    <Compile Include="Logic\DiaryEntry.cs" />
     <Compile Include="Logic\Edb.cs" />
     <Compile Include="Logic\Extensions.cs" />
     <Compile Include="Logic\Logger.cs" />

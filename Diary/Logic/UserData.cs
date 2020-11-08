@@ -6,7 +6,7 @@ namespace Diary.Logic {
     [Serializable()]
     public class UserData : ISerializable{
         public int UserID { get; set; }
-        public List<DiaryEntree> UserEntrees { get; set; }
+        public List<DiaryEntry> UserEntries { get; set; }
 
         /// <summary>
         /// Empty constructor - required for serialization
@@ -20,7 +20,7 @@ namespace Diary.Logic {
         /// <param name="context"></param>
         public void GetObjectData(SerializationInfo info, StreamingContext context) {
             info.AddValue("UserID", UserID);
-            info.AddValue("UserEntrees", UserEntrees);
+            info.AddValue("UserEntries", UserEntries);
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace Diary.Logic {
         /// <param name="ctxt"></param>
         public UserData(SerializationInfo info, StreamingContext ctxt) {
             UserID = (int)info.GetValue("UserID", typeof(int));
-            UserEntrees = (List<DiaryEntree>)info.GetValue("UserEntrees", typeof(List<DiaryEntree>));
+            UserEntries = (List<DiaryEntry>)info.GetValue("UserEntries", typeof(List<DiaryEntry>));
         }
     }
 }

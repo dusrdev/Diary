@@ -72,7 +72,7 @@ namespace Diary {
             if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(body)) {
                 Invoke(() => LblMainStatus.Content = "Both title and body cannot be empty!");
             } else {
-                var add = await Task.Run(() => Adb.AddEntree(title, body));
+                var add = await Task.Run(() => Adb.AddEntry(title, body));
                 if (add) {
                     Invoke(() => LblMainStatus.Content = "Successfully added the entry!");
                 } else {
@@ -144,7 +144,7 @@ namespace Diary {
                 if (!status) {
                     Invoke(() => LblRemoveStatus.Content = "ID must be numeric!");
                 } else {
-                    var removeStatus = await Task.Run(() => Adb.RemoveEntree(convertedId));
+                    var removeStatus = await Task.Run(() => Adb.RemoveEntry(convertedId));
                     if (!removeStatus) {
                         Invoke(() => LblRemoveStatus.Content = "Failed to remove entry, confirm ID!");
                     } else {
@@ -156,7 +156,7 @@ namespace Diary {
 
         private async void btnExportDiary_Click(object sender, RoutedEventArgs e) {
             Invoke(() => LblExportStatus.Visibility = Visibility.Visible);
-            var exportResults = await Task.Run(() => Adb.ExportEntrees());
+            var exportResults = await Task.Run(() => Adb.ExportEntries());
             if (!exportResults) {
                 Invoke(() => LblExportStatus.Content = "Failed to export user Diary!");
             } else {

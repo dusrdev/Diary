@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Diary.Logic {
     [Serializable()]
     public class Edb : ISerializable {
-        public Dictionary<int, List<DiaryEntree>> TotalEntrees { get; set; }
+        public Dictionary<int, List<DiaryEntry>> TotalEntrees { get; set; }
 
         /// <summary>
         /// Empty constuctor - required for serialization
@@ -30,7 +30,7 @@ namespace Diary.Logic {
         /// <param name="info"></param>
         /// <param name="ctxt"></param>
         public Edb(SerializationInfo info, StreamingContext ctxt) {
-            TotalEntrees = (Dictionary<int, List<DiaryEntree>>)info.GetValue("TotalEntrees", typeof(Dictionary<int, List<DiaryEntree>>));
+            TotalEntrees = (Dictionary<int, List<DiaryEntry>>)info.GetValue("TotalEntrees", typeof(Dictionary<int, List<DiaryEntry>>));
         }
     }
 }
