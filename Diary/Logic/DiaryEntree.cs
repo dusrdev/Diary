@@ -21,7 +21,7 @@ namespace Diary.Logic {
         /// </summary>
         /// <param name="title"></param>
         /// <param name="body"></param>
-        /// <param name="entreeID">ID of the last entree before this one</param>
+        /// <param name="entreeID">ID of the last entry before this one</param>
         public DiaryEntree(string title, string body, int entreeID) {
             Title = title.ToTitle();
             Body = body;

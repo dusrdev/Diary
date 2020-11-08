@@ -90,7 +90,7 @@
                 </DockPanel>
                 <StackPanel x:Name="MorePage" Visibility="Collapsed" Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">
-                        <Label Content="Remove entree by ID:" Style="{StaticResource KeyLabel}"/>
+                        <Label Content="Remove entry by ID:" Style="{StaticResource KeyLabel}"/>
                         <TextBox x:Name="TxtRemoveEntree" MinWidth="120" KeyDown="txtRemoveEntree_KeyDown"/>
                         <Button x:Name="BtnRemoveEntree" Content="Remove" Click="btnRemoveEntree_Click"/>
                         <Label x:Name="LblRemoveStatus" Style="{StaticResource StatusLabel}" Visibility="Collapsed"/>

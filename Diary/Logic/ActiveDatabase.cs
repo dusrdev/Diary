@@ -38,7 +38,7 @@ namespace Diary.Logic {
         }
 
         /// <summary>
-        /// Search entrees by query
+        /// Search entries by query
         /// </summary>
         /// <param name="query">search query</param>
         /// <returns>Results (Not found if empty)</returns>
@@ -55,18 +55,18 @@ namespace Diary.Logic {
                 sQuery = query.Subset(1, 1).Queryable();
                 return CurrentEntrees.FindAll(e => e.Date.QuerySearch(sQuery));
             }
-            foreach (var entree in CurrentEntrees) {
-                if (entree.Title.QuerySearch(sQuery) || entree.Body.QuerySearch(sQuery)) {
-                    results.Add(entree);
+            foreach (var entry in CurrentEntrees) {
+                if (entry.Title.QuerySearch(sQuery) || entry.Body.QuerySearch(sQuery)) {
+                    results.Add(entry);
                 }
             }
             return results;
         }
 
         /// <summary>
-        /// Remove entree by id (displayed in search window)
+        /// Remove entry by id (displayed in search window)
         /// </summary>
-        /// <param name="queryId">ID of desired entree</param>
+        /// <param name="queryId">ID of desired entry</param>
         /// <returns>indication of success</returns>
         public bool RemoveEntree(int queryId) {
             if (!CurrentEntrees.Exists(e => e.ID == queryId)) {
@@ -81,10 +81,10 @@ namespace Diary.Logic {
         }
 
         /// <summary>
-        /// Add entree
+        /// Add entry
         /// </summary>
-        /// <param name="title">Entree title</param>
-        /// <param name="body">Entree body</param>
+        /// <param name="title">Entry title</param>
+        /// <param name="body">Entry body</param>
         /// <returns>indication of success</returns>
         public bool AddEntree(string title, string body) {
             CurrentEntrees ??= new List<DiaryEntree>();
@@ -132,7 +132,7 @@ namespace Diary.Logic {
         }
 
         /// <summary>
-        /// Exports current user's diary entrees
+        /// Exports current user's diary entries
         /// </summary>
         /// <returns>Indication of success</returns>
         public bool ExportEntrees() {

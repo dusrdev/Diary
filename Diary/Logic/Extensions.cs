@@ -20,7 +20,7 @@ namespace Diary.Logic {
 
         /// <summary>
         /// Removes all whitespace characters from text
-        /// In this app it used to compare entree bodies to avoid duplicates with different spacing
+        /// In this app it used to compare entry bodies to avoid duplicates with different spacing
         /// </summary>
         /// <param name="str"></param>
         /// <returns>String without any whitespaces</returns>
