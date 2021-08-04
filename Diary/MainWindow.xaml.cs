@@ -4,61 +4,61 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using static Diary.Logic.Native;
 
-namespace Diary {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window {
+namespace Diary
+{
+	/// <summary>
+	/// Interaction logic for MainWindow.xaml
+	/// </summary>
+	public partial class MainWindow : Window {
         private ActiveDatabase Adb { get; set; }
 
         public MainWindow() {
             InitializeComponent();
             Adb = new ActiveDatabase();
-            Invoke(() => LblVersion.Content = AssemblyVersion);
-            Invoke(() => TxtUsername.Focus());
+            LblVersion.Content = AssemblyVersion;
+            TxtUsername.Focus();
         }
 
         #region TabPanel
 
         private void CollapseAllPages() {
-            Invoke(() => MainPage.Visibility = Visibility.Collapsed);
-            Invoke(() => SearchPage.Visibility = Visibility.Collapsed);
-            Invoke(() => MorePage.Visibility = Visibility.Collapsed);
-            Invoke(() => InfoPage.Visibility = Visibility.Collapsed);
-            Invoke(() => BtnMain.IsEnabled = true);
-            Invoke(() => BtnSearch.IsEnabled = true);
-            Invoke(() => BtnMore.IsEnabled = true);
-            Invoke(() => BtnInfo.IsEnabled = true);
+            MainPage.Visibility = Visibility.Collapsed;
+            SearchPage.Visibility = Visibility.Collapsed;
+            MorePage.Visibility = Visibility.Collapsed;
+            InfoPage.Visibility = Visibility.Collapsed;
+            BtnMain.IsEnabled = true;
+            BtnSearch.IsEnabled = true;
+            BtnMore.IsEnabled = true;
+            BtnInfo.IsEnabled = true;
         }
 
         private void btnMain_Click(object sender, RoutedEventArgs e) {
             CollapseAllPages();
-            Invoke(() => BtnMain.IsEnabled = false);
-            Invoke(() => MainPage.Visibility = Visibility.Visible);
-            Invoke(() => TxtTitle.Focus());
+            BtnMain.IsEnabled = false;
+            MainPage.Visibility = Visibility.Visible;
+            TxtTitle.Focus();
         }
 
         private void btnSearch_Click(object sender, RoutedEventArgs e) {
             CollapseAllPages();
-            Invoke(() => BtnSearch.IsEnabled = false);
-            Invoke(() => SearchPage.Visibility = Visibility.Visible);
-            Invoke(() => TxtSearch.Focus());
+            BtnSearch.IsEnabled = false;
+            SearchPage.Visibility = Visibility.Visible;
+            TxtSearch.Focus();
         }
 
         private void btnMore_Click(object sender, RoutedEventArgs e) {
             CollapseAllPages();
-            Invoke(() => BtnMore.IsEnabled = false);
-            Invoke(() => MorePage.Visibility = Visibility.Visible);
-            Invoke(() => TxtRemoveEntree.Focus());
+            BtnMore.IsEnabled = false;
+            MorePage.Visibility = Visibility.Visible;
+            TxtRemoveEntree.Focus();
         }
 
         private void btnInfo_Click(object sender, RoutedEventArgs e) {
             CollapseAllPages();
-            Invoke(() => BtnInfo.IsEnabled = false);
-            Invoke(() => InfoPage.Visibility = Visibility.Visible);
+            BtnInfo.IsEnabled = false;
+            InfoPage.Visibility = Visibility.Visible;
         }
 
         #endregion TabPanel
@@ -68,32 +68,32 @@ namespace Diary {
         private async void btnSave_Click(object sender, RoutedEventArgs e) {
             var title = TxtTitle.Text;
             var body = TxtBody.Text;
-            Invoke(() => LblMainStatus.Visibility = Visibility.Visible);
+            LblMainStatus.Visibility = Visibility.Visible;
             if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(body)) {
-                Invoke(() => LblMainStatus.Content = "Both title and body cannot be empty!");
+                LblMainStatus.Content = "Both title and body cannot be empty!";
             } else {
                 var add = await Task.Run(() => Adb.AddEntry(title, body));
                 if (add) {
-                    Invoke(() => LblMainStatus.Content = "Successfully added the entry!");
+                    LblMainStatus.Content = "Successfully added the entry!";
                 } else {
-                    Invoke(() => LblMainStatus.Content = "Failed to add entry!");
+                    LblMainStatus.Content = "Failed to add entry!";
                 }
             }
         }
 
         private void txtBody_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e) {
-            Invoke(() => LblMainStatus.Visibility = Visibility.Collapsed);
+            LblMainStatus.Visibility = Visibility.Collapsed;
         }
 
         private void txtBody_TextChanged(object sender, TextChangedEventArgs e) {
             if (LblMainStatus.Visibility == Visibility.Visible) {
-                Invoke(() => LblMainStatus.Visibility = Visibility.Collapsed);
+                LblMainStatus.Visibility = Visibility.Collapsed;
             }
             var body = TxtBody.Text;
             var lines = body.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).Length;
             var words = body.Replace(Environment.NewLine, " ").Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries).Length;
             var metrics = $"{TxtBody.Text.Length} characters, {words} words, {lines} lines.";
-            Invoke(() => LblMetrics.Content = metrics);
+            LblMetrics.Content = metrics;
         }
 
 
@@ -103,24 +103,24 @@ namespace Diary {
 
         private async void btnSearchQuery_Click(object sender, RoutedEventArgs e) {
             var query = TxtSearch.Text;
-            Invoke(() => LstSearchResults.ItemsSource = null);
-            Invoke(() => LblSearchStatus.Visibility = Visibility.Visible);
+            LstSearchResults.ItemsSource = null;
+            LblSearchStatus.Visibility = Visibility.Visible;
             if (string.IsNullOrEmpty(query)) {
-                Invoke(() => LblSearchStatus.Content = "Cannot search with empty text!");
+                LblSearchStatus.Content = "Cannot search with empty text!";
             } else {
                 var results = await Task.Run(() => Adb.Search(query));
                 if (results == null || results.Count == 0) {
-                    Invoke(() => LblSearchStatus.Content = "Found no results :(");
+                    LblSearchStatus.Content = "Found no results :(";
                 } else {
-                    Invoke(() => LblSearchStatus.Content = $"Results found: {results.Count}");
-                    Invoke(() => LstSearchResults.ItemsSource = results);
+                    LblSearchStatus.Content = $"Results found: {results.Count}";
+                    LstSearchResults.ItemsSource = results;
                 }
             }
         }
 
         private void txtSearch_TextChanged(object sender, TextChangedEventArgs e) {
             if (LblSearchStatus.Visibility == Visibility.Visible) {
-                Invoke(() => LblSearchStatus.Visibility = Visibility.Collapsed);
+                LblSearchStatus.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -136,45 +136,45 @@ namespace Diary {
 
         private async void btnRemoveEntree_Click(object sender, RoutedEventArgs e) {
             var id = TxtRemoveEntree.Text;
-            Invoke(() => LblRemoveStatus.Visibility = Visibility.Visible);
+            LblRemoveStatus.Visibility = Visibility.Visible;
             if (string.IsNullOrEmpty(id)) {
-                Invoke(() => LblRemoveStatus.Content = "Please enter ID!");
+                LblRemoveStatus.Content = "Please enter ID!";
             } else {
                 var status = int.TryParse(id, out var convertedId);
                 if (!status) {
-                    Invoke(() => LblRemoveStatus.Content = "ID must be numeric!");
+                    LblRemoveStatus.Content = "ID must be numeric!";
                 } else {
                     var removeStatus = await Task.Run(() => Adb.RemoveEntry(convertedId));
                     if (!removeStatus) {
-                        Invoke(() => LblRemoveStatus.Content = "Failed to remove entry, confirm ID!");
+                        LblRemoveStatus.Content = "Failed to remove entry, confirm ID!";
                     } else {
-                        Invoke(() => LblRemoveStatus.Content = "Successfully removed entry!");
+                        LblRemoveStatus.Content = "Successfully removed entry!";
                     }
                 }
             }
         }
 
         private async void btnExportDiary_Click(object sender, RoutedEventArgs e) {
-            Invoke(() => LblExportStatus.Visibility = Visibility.Visible);
+            LblExportStatus.Visibility = Visibility.Visible;
             var exportResults = await Task.Run(() => Adb.ExportEntries());
             if (!exportResults) {
-                Invoke(() => LblExportStatus.Content = "Failed to export user Diary!");
+                LblExportStatus.Content = "Failed to export user Diary!";
             } else {
-                Invoke(() => LblExportStatus.Content = "Successfully export user Diary!");
+                LblExportStatus.Content = "Successfully export user Diary!";
             }
         }
 
         private async void btnRemoveUser_Click(object sender, RoutedEventArgs e) {
             var password = PswBoxRemove.Password;
-            Invoke(() => LblRemoveUserStatus.Visibility = Visibility.Visible);
+            LblRemoveUserStatus.Visibility = Visibility.Visible;
             if (password != Adb.CurrentUser.Password) {
-                Invoke(() => LblRemoveUserStatus.Content = "Wrong password!");
+                LblRemoveUserStatus.Content = "Wrong password!";
             } else {
                 var removeStatus = await Task.Run(() => Adb.RemoveCurrentUser());
                 if (!removeStatus) {
-                    Invoke(() => LblRemoveUserStatus.Content = "Failed to remove user, check log!");
+                    LblRemoveUserStatus.Content = "Failed to remove user, check log!";
                 } else {
-                    Invoke(() => LblRemoveUserStatus.Content = "Successfully removed user!");
+                    LblRemoveUserStatus.Content = "Successfully removed user!";
                 }
             }
         }
@@ -198,16 +198,16 @@ namespace Diary {
         private async void btnCreate_Click(object sender, RoutedEventArgs e) {
             var username = TxtUsername.Text;
             var password = PswBox.Password;
-            Invoke(() => LblLoginStatus.Visibility = Visibility.Visible);
+            LblLoginStatus.Visibility = Visibility.Visible;
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password)) {
-                Invoke(() => LblLoginStatus.Content = "Both username and password cannot be empty!");
+                LblLoginStatus.Content = "Both username and password cannot be empty!";
             } else {
                 var createResult = await Task.Run(() => Adb.AddUser(new User(username, password)));
                 if (!createResult) {
-                    Invoke(() => LblLoginStatus.Content = "Failed to create user, check log!");
+                    LblLoginStatus.Content = "Failed to create user, check log!";
                 } else {
-                    Invoke(() => LoginPage.Visibility = Visibility.Collapsed);
-                    Invoke(() => GeneralPage.Visibility = Visibility.Visible);
+                    LoginPage.Visibility = Visibility.Collapsed;
+                    GeneralPage.Visibility = Visibility.Visible;
                 }
             }
         }
@@ -215,23 +215,23 @@ namespace Diary {
         private async void btnLogin_Click(object sender, RoutedEventArgs e) {
             var username = TxtUsername.Text;
             var password = PswBox.Password;
-            Invoke(() => LblLoginStatus.Visibility = Visibility.Visible);
+            LblLoginStatus.Visibility = Visibility.Visible;
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password)) {
-                Invoke(() => LblLoginStatus.Content = "Both username and password cannot be empty!");
+                LblLoginStatus.Content = "Both username and password cannot be empty!";
             } else {
                 var loginResult = await Task.Run(() => Adb.Login(username, password));
                 if (!loginResult) {
-                    Invoke(() => LblLoginStatus.Content = "Wrong Credentials!");
+                    LblLoginStatus.Content = "Wrong Credentials!";
                 } else {
-                    Invoke(() => LoginPage.Visibility = Visibility.Collapsed);
-                    Invoke(() => GeneralPage.Visibility = Visibility.Visible);
+                    LoginPage.Visibility = Visibility.Collapsed;
+                    GeneralPage.Visibility = Visibility.Visible;
                 }
             }
         }
 
         private void txtUsername_KeyDown(object sender, KeyEventArgs e) {
             if (e.Key == Key.Enter) {
-                Invoke(() => PswBox.Focus());
+                PswBox.Focus();
             }
         }
 
