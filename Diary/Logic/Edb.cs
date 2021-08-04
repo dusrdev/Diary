@@ -11,7 +11,7 @@ namespace Diary.Logic {
         public Dictionary<int, List<DiaryEntry>> TotalEntrees { get; set; }
 
         /// <summary>
-        /// Empty constuctor - required for serialization
+        /// Empty constructor - required for serialization
         /// </summary>
         public Edb() { }
 

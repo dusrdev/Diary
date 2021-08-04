@@ -24,7 +24,7 @@ namespace Diary.Logic {
         }
 
         /// <summary>
-        /// Deserialization fucntion
+        /// Deserialization function
         /// </summary>
         /// <param name="info"></param>
         /// <param name="ctxt"></param>

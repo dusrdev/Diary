@@ -63,7 +63,7 @@ namespace Diary.Logic {
         }
 
         /// <summary>
-        /// Function used to decypher encrypted text
+        /// Function used to decipher encrypted text
         /// </summary>
         /// <param name="encrypted"></param>
         /// <returns>decrypted string</returns>

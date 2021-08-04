@@ -117,7 +117,7 @@ namespace Diary.Logic {
 
         /// <summary>
         /// Method used to turn any string into Title format
-        /// Title format is when every word begins capatilized.
+        /// Title format is when every word begins capitalized.
         /// </summary>
         /// <param name="str">any text</param>
         /// <returns>Text In Title Format</returns>
