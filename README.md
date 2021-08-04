@@ -6,8 +6,10 @@ This is a WPF Diary app that uses a local encrypted scalable database.
 
 ## Developer update: 2021
 
-The latest version of this project was released on Nov 2019 and is using .net framework 4.7.2 in addition to more outdated packages and techniques.
-As of right now consider this application only as a general and very basic presentations of my skills; as I've since progressed to using newer and better technologies, and refined both my skills and every self-made package that this app uses.
+The latest version of this project was released on Nov 2020 and is using .net framework 4.7.2 in addition to more outdated packages and techniques.
+As of right now consider this application only as a general and very basic presentations of my skills; 2021 has been a big year for me as I've since progressed to using newer and better technologies, and refined both my skills and every self-made package that this app uses.
+
+I have a much larger and more recent app under development but as of right know, it is not ready for public release.
 
 ## App interface description
 
